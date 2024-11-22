@@ -57,6 +57,26 @@ h3 {
     font-size: 3.0em
 }
 
+.fortune-images {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;  
+}
+
+.fortune-item {
+    text-align: center;
+}
+
+.fortune-image {
+    width: 96px;  
+    height: 96px;
+}
+
+.fortune-item p {
+    margin-top: 10px;  
+    font-size: 16px;   
+}
+
 .skill {
     display: flex;
     flex-direction: column; 
