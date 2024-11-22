@@ -3,7 +3,7 @@ body {
     font-family: Arial, sans-serif; 
     margin: 0;
     padding: 0;
-    background-color: #FFD2A5; 
+    background-color: #FFE6CD; 
 }
 
 .container {
@@ -24,7 +24,7 @@ h1 {
 h1 .name {
     font-family: "Juliette", sans-serif; 
     font-size: 4.0em; 
-    color: #FFE6CD; 
+    color: #FFA64E; 
     text-shadow: 
         -4px -4px 0 #FFFFFF, 
         4px -4px 0 #FFFFFF, 
