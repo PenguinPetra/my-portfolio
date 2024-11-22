@@ -17,13 +17,13 @@ h1 {
     background-size: 100% auto; 
     background-repeat: no-repeat;
     background-position: center;
-    padding: 20px; 
+    padding: 0px; 
     margin: 0; 
     color: white; 
 }
 
 h1 .name {
-    font-family: "Juliette - Stylish Handwritten Signature Font", sans-serif; 
+    font-family: "Juliette", sans-serif; 
     font-size: 10em; 
     color: #FFA64E; 
     text-shadow: 
@@ -35,6 +35,7 @@ h1 .name {
     word-wrap: break-word; 
     margin: 0; 
     display: inline-block;
+    transform: rotate(-5deg);
 }
 
 img {
