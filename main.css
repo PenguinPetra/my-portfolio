@@ -97,19 +97,19 @@ p {
 }
 
 .skill {
-    display: flex;
-    text-align: center; 
-    flex-direction: column; 
-    gap: 20px; 
-    margin: 20px 0;
+        display: flex;                
+        flex-direction: column;       
+        align-items: center;          
+        gap: 20px;                    
+}
+    
+.skill-item {
+        display: flex;               
+        align-items: center;          
+        gap: 10px;                    
+        text-align: left;             
 }
 
-.skill-item {
-    display: flex;
-    align-items: center; 
-    gap: 20px;
-    text-align: left;
-}
 
 .skill-icon {
     height: 100px;
