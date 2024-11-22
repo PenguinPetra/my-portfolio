@@ -2,12 +2,21 @@
 body {
     text-align: center;
     font-family: Arial, sans-serif; 
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 1200px; 
+    margin: 0 auto; 
+    overflow: hidden; 
 }
 
 h1 {
     background-image: url("title background.jpg"); 
-    background-size: cover; 
-    background-position: center; 
+    background-size: 100% auto; 
+    background-repeat: no-repeat;
+    background-position: center;
     padding: 200px; 
     margin: 0; 
     color: white; 
@@ -23,6 +32,13 @@ h1 .name {
         -2px 2px 0 #FFFFFF,  
         2px 2px 0 #FFFFFF;   
     margin: 0; 
+}
+
+img {
+    max-width: 100%; 
+    height: auto; 
+    display: block; 
+    margin: 0 auto; 
 }
 
 h2 {
