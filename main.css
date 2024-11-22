@@ -4,10 +4,25 @@ body {
     font-family: Arial, sans-serif; 
 }
 
+h1 {
+    background-image: url("title background.jpg"); 
+    background-size: cover; 
+    background-position: center; 
+    padding: 200px; 
+    margin: 0; 
+    color: white; 
+}
+
 h1 .name {
     font-family: "migikataagari", sans-serif; 
-    font-size: 7.0em; 
-    margin: 10; 
+    font-size: 150px; 
+    color: #FFA64E; 
+    text-shadow: 
+        -2px -2px 0 #FFFFFF, 
+        2px -2px 0 #FFFFFF, 
+        -2px 2px 0 #FFFFFF,  
+        2px 2px 0 #FFFFFF;   
+    margin: 0; 
 }
 
 h2 {
