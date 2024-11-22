@@ -49,10 +49,56 @@ h2 {
     font-weight: bold;
     color: #67A0C4;
     padding: 50px 0px;
-    font-size: 3.5em
+    font-size: 4.5em
 }
 
 h3 {
     font-weight: bold;
-    font-size: 3.0em
+    font-size: 4.0em
+}
+
+.skill {
+    display: flex;
+    flex-direction: column; 
+    gap: 20px; 
+}
+
+.skill-item {
+    display: flex;
+    align-items: center; 
+    gap: 20px;
+}
+
+.skill-icon {
+    height: 50px;
+    width: auto; 
+}
+
+.skill-description {
+    font-size: 1.2em; 
+}
+
+.html-css-container {
+    position: relative;
+    width: 50px; 
+    height: 50px; 
+}
+
+.html-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    z-index: 1;
+}
+
+.css-icon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 50px;
+    height: 50px;
+    z-index: 0;
+    transform: rotate(45deg); 
 }
