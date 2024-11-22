@@ -17,21 +17,24 @@ h1 {
     background-size: 100% auto; 
     background-repeat: no-repeat;
     background-position: center;
-    padding: 200px; 
+    padding: 20px; 
     margin: 0; 
     color: white; 
 }
 
 h1 .name {
     font-family: "migikataagari", sans-serif; 
-    font-size: 150px; 
+    font-size: 10em; 
     color: #FFA64E; 
     text-shadow: 
         -2px -2px 0 #FFFFFF, 
         2px -2px 0 #FFFFFF, 
         -2px 2px 0 #FFFFFF,  
         2px 2px 0 #FFFFFF;   
+    max-width: 100%; 
+    word-wrap: break-word; 
     margin: 0; 
+    display: inline-block;
 }
 
 img {
