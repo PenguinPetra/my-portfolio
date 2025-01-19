@@ -97,8 +97,8 @@ p {
 }
 
 .meiro-image{
-    width: auto;
-  　height: auto;
+    width: 1450px;  
+    height: 1033px;
     object-fit: cover;
 }
 
