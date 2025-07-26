@@ -53,6 +53,46 @@
     JavaScriptは、ウェブページに動きを与えるプログラミング言語です。ここでは、基本的な構文を学びながら、実際に動くアプリを体験できます。
   </p>
 
+
+<h1>JavaScriptの基礎</h1>
+
+  <h2>変数と定数</h2>
+  <pre><code>let name = "太郎";
+const age = 20;
+document.getElementById("output1").textContent = `名前: ${name}、年齢: ${age}`;
+  </code></pre>
+  <button onclick="runExample1()">このコードを実行する</button>
+  <div id="output1" class="output"></div>
+
+  <h2>関数</h2>
+  <pre><code>function sayHello() {
+  alert("こんにちは！");
+}
+sayHello();
+  </code></pre>
+  <button onclick="runExample2()">このコードを実行する</button>
+
+  <h2>条件分岐</h2>
+  <pre><code>let score = 85;
+let message = "";
+if (score >= 80) {
+  message = "よくできました";
+} else {
+  message = "がんばりましょう";
+}
+document.getElementById("output3").textContent = message;
+  </code></pre>
+  <button onclick="runExample3(85)">score=85を試す</button>
+  <button onclick="runExample3(60)">score=60を試す</button>
+  <div id="output3" class="output"></div>
+
+  <h2>イベントとDOM</h2>
+  <pre><code>document.getElementById("demoBtn").addEventListener("click", function() {
+  alert("ボタンがクリックされました");
+});
+  </code></pre>
+  <button id="demoBtn">デモボタン</button>
+
   <!-- === おみくじ === -->
   <h2>おみくじ</h2>
   <p>
