@@ -1,133 +1,189 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <title>JavaScript 基本文法まとめ</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="main.css" />
+  <meta charset="UTF-8">
+  <title>JavaScript基礎</title>
   <style>
-    body { padding:20px; font-family:Arial, sans-serif; line-height:1.6; }
-    h1, h2, h3 { color:#4A90E2; }
-    pre { background:#f4f4f4; padding:10px; overflow-x:auto; }
-    code { font-family:Consolas, monospace; }
-    nav a { margin-right:15px; text-decoration:none; color:#333; }
-    nav a:hover { text-decoration:underline; }
+    body {
+      font-family: sans-serif;
+      line-height: 1.8;
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+    h1 {
+      border-bottom: 3px solid #444;
+      padding-bottom: 0.3em;
+    }
+    h2 {
+      margin-top: 2em;
+      color: #2a7ae2;
+    }
+    code, pre {
+      background: #f4f4f4;
+      border-left: 4px solid #ccc;
+      padding: 10px;
+      display: block;
+      white-space: pre-wrap;
+      overflow-x: auto;
+    }
+    a {
+      color: #2a7ae2;
+    }
+    hr {
+      margin: 40px 0;
+    }
   </style>
 </head>
 <body>
-  <h1>JavaScript 基本文法まとめ</h1>
-  <nav>
-    <a href="#console">console.log</a>
-    <a href="#comments">コメント</a>
-    <a href="#variables">変数宣言</a>
-    <a href="#types">データ型</a>
-    <a href="#operators">演算子</a>
-    <a href="#condition">条件分岐</a>
-    <a href="#loops">ループ</a>
-    <a href="#functions">関数</a>
-    <a href="#scopes">スコープ</a>
-    <a href="index.html">← ポートフォリオへ戻る</a>
-  </nav>
 
-  <h2 id="console">console.log（出力）</h2>
-  <pre><code>console.log('Hello World');</code></pre>
+  <h1>JavaScript初心者向けチュートリアル集</h1>
+  <p>このページでは、JavaScript初心者のために4つのミニアプリを通して基本的な技術を学べます。</p>
 
-  <h2 id="comments">コメント</h2>
-  <pre><code>// これは1行コメント
+  <hr>
 
-/*
-  これは複数行コメント
-*/</code></pre>
+  <h2>1. おみくじアプリ作成チュートリアル</h2>
+  <p><strong>学習内容：</strong> 変数、配列、条件分岐、乱数、DOM操作、イベント処理</p>
 
-  <h2 id="variables">変数宣言（const, let）</h2>
-  <pre><code>const price = 500;
-let count = 3;
-// var は再定義・再代入ができるが非推奨</code></pre>
+  <h3>完成イメージ</h3>
+  <p>「おみくじを引く」ボタンを押すと、ランダムな運勢（大吉、中吉など）が表示されます。</p>
 
-  <h2 id="types">データ型（プリミティブ型）</h2>
-  <ul>
-    <li>String, Number, Boolean, undefined, null, Symbol</li>
-  </ul>
-  <pre><code>console.log(typeof 'Hi');     // "string"
-console.log(typeof 123);     // "number"
-console.log(typeof true);    // "boolean"
-console.log(typeof undefined); // "undefined"
-console.log(typeof null);     // "object" ← 歴史的仕様</code></pre>
-
-  <h2 id="operators">演算子・注意点</h2>
-  <pre><code>console.log('5' * 3);  // 15
-console.log('5' + 3);        // "53"
-
-console.log(parseInt('5') + 3); // 8</code></pre>
-
-  <h2 id="condition">条件分岐（if / switch／三項演算子）</h2>
-  <pre><code>if (score >= 80) {
-  console.log('Great!');
-} else if (score >= 60) {
-  console.log('Good');
-} else {
-  console.log('OK...');
-}
-
-score >= 80 ? console.log('Great!') : console.log('OK...');
-
-switch (signal) {
-  case 'red': console.log('Stop!'); break;
-  case 'blue':
-  case 'green': console.log('Go!'); break;
-  default: console.log('Wrong Signal');
-}</code></pre>
-
-  <h2 id="loops">ループ（for / while / do…while）</h2>
-  <pre><code>for (let i = 1; i <= 5; i++) {
-  console.log(`${i}: Hello`);
-}
-
-let hp = 100;
-while (hp > 0) {
-  console.log(`HP: ${hp}`);
-  hp -= 15;
-}
-
-let num = -10;
-do {
-  console.log(num);
-  num += 5;
-} while (num < 0);
+  <h3>HTML + CSS</h3>
+  <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;おみくじアプリ&lt;/title&gt;
+  &lt;style&gt;
+    #result { font-size: 24px; margin-top: 20px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;おみくじアプリ&lt;/h1&gt;
+  &lt;button id=&quot;omikujiBtn&quot;&gt;おみくじを引く&lt;/button&gt;
+  &lt;div id=&quot;result&quot;&gt;&lt;/div&gt;
+  &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 
-  <h2 id="functions">関数宣言・関数式・アロー関数</h2>
-  <pre><code>// 関数宣言
-function sum(a, b) {
-  return a + b;
-}
+  <h3>JavaScript (script.js)</h3>
+  <pre><code>const fortunes = [&quot;大吉&quot;, &quot;中吉&quot;, &quot;小吉&quot;, &quot;凶&quot;, &quot;大凶&quot;];
+const btn = document.getElementById(&quot;omikujiBtn&quot;);
+const result = document.getElementById(&quot;result&quot;);
 
-// 関数式
-const mul = function(a, b) {
-  return a * b;
-};
-
-// アロー関数
-const double = a => a * 2;
-console.log(sum(1,2), mul(2,3), double(5));
+btn.addEventListener(&quot;click&quot;, function() {
+  const index = Math.floor(Math.random() * fortunes.length);
+  result.textContent = fortunes[index];
+});
 </code></pre>
 
-  <h2 id="scopes">スコープ（有効範囲）</h2>
-  <pre><code>{
-  const x = 10;
-  console.log(x); // OK
-}
-console.log(x); // エラー：x is not defined
+  <hr>
 
-const global = 5;
-function f() {
-  const global = 3;
-  console.log(global);
-}
-f();
-console.log(global); // 5</code></pre>
+  <h2>2. ToDoリスト作成チュートリアル</h2>
+  <p><strong>学習内容：</strong> フォーム入力、DOMの生成・削除</p>
 
-  <p>※以上は <a href="https://qiita.com/Fendo181/items/cca476da99e8f09b6b97" target="_blank">Fendo181 氏の「JavaScript 基礎文法」</a> を参考に簡潔にまとめたものです。:contentReference[oaicite:1]{index=1}</p>
+  <h3>HTML</h3>
+  <pre><code>&lt;input type=&quot;text&quot; id=&quot;taskInput&quot;&gt;
+&lt;button id=&quot;addTask&quot;&gt;追加&lt;/button&gt;
+&lt;ul id=&quot;taskList&quot;&gt;&lt;/ul&gt;
+</code></pre>
+
+  <h3>JavaScript (todo.js)</h3>
+  <pre><code>const input = document.getElementById(&quot;taskInput&quot;);
+const button = document.getElementById(&quot;addTask&quot;);
+const list = document.getElementById(&quot;taskList&quot;);
+
+button.addEventListener(&quot;click&quot;, function() {
+  const taskText = input.value;
+  if (taskText === &quot;&quot;) return;
+
+  const li = document.createElement(&quot;li&quot;);
+  li.textContent = taskText;
+
+  const deleteBtn = document.createElement(&quot;button&quot;);
+  deleteBtn.textContent = &quot;削除&quot;;
+  deleteBtn.addEventListener(&quot;click&quot;, function() {
+    list.removeChild(li);
+  });
+
+  li.appendChild(deleteBtn);
+  list.appendChild(li);
+  input.value = &quot;&quot;;
+});
+</code></pre>
+
+  <hr>
+
+  <h2>3. お天気検索アプリ</h2>
+  <p><strong>学習内容：</strong> Fetch API、JSONの扱い、非同期処理</p>
+
+  <p>OpenWeatherMapのAPIキーが必要です。<a href="https://openweathermap.org/api">こちらから取得</a></p>
+
+  <h3>HTML</h3>
+  <pre><code>&lt;input type=&quot;text&quot; id=&quot;city&quot;&gt;
+&lt;button id=&quot;search&quot;&gt;検索&lt;/button&gt;
+&lt;div id=&quot;weather&quot;&gt;&lt;/div&gt;
+</code></pre>
+
+  <h3>JavaScript (weather.js)</h3>
+  <pre><code>const API_KEY = &quot;YOUR_API_KEY&quot;;
+const button = document.getElementById(&quot;search&quot;);
+const input = document.getElementById(&quot;city&quot;);
+const result = document.getElementById(&quot;weather&quot;);
+
+button.addEventListener(&quot;click&quot;, () =&gt; {
+  const city = input.value;
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&amp;appid=${API_KEY}&amp;units=metric&amp;lang=ja`)
+    .then(response =&gt; response.json())
+    .then(data =&gt; {
+      const weather = data.weather[0].description;
+      const temp = data.main.temp;
+      result.textContent = `${city}：${weather}、${temp}℃`;
+    })
+    .catch(() =&gt; {
+      result.textContent = &quot;都市が見つかりませんでした。&quot;;
+    });
+});
+</code></pre>
+
+  <hr>
+
+  <h2>4. jQuery画像スライダー</h2>
+  <p><strong>学習内容：</strong> jQueryの基本、アニメーション</p>
+
+  <h3>HTML</h3>
+  <pre><code>&lt;div id=&quot;slider&quot;&gt;
+  &lt;img src=&quot;image1.jpg&quot; class=&quot;active&quot;&gt;
+  &lt;img src=&quot;image2.jpg&quot;&gt;
+  &lt;img src=&quot;image3.jpg&quot;&gt;
+&lt;/div&gt;
+</code></pre>
+
+  <h3>CSS</h3>
+  <pre><code>#slider img {
+  display: none;
+  width: 300px;
+}
+#slider img.active {
+  display: block;
+}
+</code></pre>
+
+  <h3>JavaScript (slider.js)</h3>
+  <pre><code>let index = 0;
+const images = $(&quot;#slider img&quot;);
+
+setInterval(() =&gt; {
+  images.eq(index).removeClass(&quot;active&quot;);
+  index = (index + 1) % images.length;
+  images.eq(index).addClass(&quot;active&quot;);
+}, 3000);
+</code></pre>
+
+  <hr>
+
+  <p style="text-align: center;">© JavaScript基礎</p>
 
 </body>
 </html>
