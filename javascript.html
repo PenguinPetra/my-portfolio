@@ -1,152 +1,133 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="utf-8" />
-    <title>JavaScript技術紹介</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="main.css" />
-    <style>
-        body {
-            padding: 20px;
-            text-align: left;
-        }
-
-        h1, h2, h3 {
-            color: #4A90E2;
-        }
-
-        pre {
-            background-color: #f4f4f4;
-            padding: 10px;
-            overflow-x: auto;
-        }
-
-        code {
-            font-family: Consolas, monospace;
-        }
-
-        nav {
-            background: #eee;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-left: 5px solid #4A90E2;
-        }
-
-        nav a {
-            margin-right: 15px;
-            text-decoration: none;
-            color: #333;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>JavaScript 基本文法まとめ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="main.css" />
+  <style>
+    body { padding:20px; font-family:Arial, sans-serif; line-height:1.6; }
+    h1, h2, h3 { color:#4A90E2; }
+    pre { background:#f4f4f4; padding:10px; overflow-x:auto; }
+    code { font-family:Consolas, monospace; }
+    nav a { margin-right:15px; text-decoration:none; color:#333; }
+    nav a:hover { text-decoration:underline; }
+  </style>
 </head>
 <body>
-    <h1>JavaScript技術紹介</h1>
+  <h1>JavaScript 基本文法まとめ</h1>
+  <nav>
+    <a href="#console">console.log</a>
+    <a href="#comments">コメント</a>
+    <a href="#variables">変数宣言</a>
+    <a href="#types">データ型</a>
+    <a href="#operators">演算子</a>
+    <a href="#condition">条件分岐</a>
+    <a href="#loops">ループ</a>
+    <a href="#functions">関数</a>
+    <a href="#scopes">スコープ</a>
+    <a href="index.html">← ポートフォリオへ戻る</a>
+  </nav>
 
-    <nav>
-        <a href="#intro">はじめに</a>
-        <a href="#syntax">基本文法</a>
-        <a href="#dom">DOM操作</a>
-        <a href="#async">非同期処理</a>
-        <a href="#modules">モダンJS</a>
-        <a href="#frameworks">フレームワーク</a>
-        <a href="#test">テスト</a>
-        <a href="#libs">ライブラリ</a>
-        <a href="#pwa">PWA</a>
-        <a href="#realtime">リアルタイム通信</a>
-        <a href="#graphics">グラフィックス</a>
-        <a href="#optimize">最適化</a>
-        <a href="#compatibility">互換性</a>
-        <a href="index.html">← ポートフォリオへ戻る</a>
-    </nav>
+  <h2 id="console">console.log（出力）</h2>
+  <pre><code>console.log('Hello World');</code></pre>
 
-    <h2 id="intro">はじめに</h2>
-    <p>JavaScriptはWebブラウザ上で動作するプログラミング言語で、ユーザーとのインタラクションやデータ処理を担います。近年ではNode.jsを使ってサーバーサイドでも広く使われています。</p>
+  <h2 id="comments">コメント</h2>
+  <pre><code>// これは1行コメント
 
-    <h2 id="syntax">基本構文と特徴</h2>
-    <pre><code>// 変数宣言
-let name = "Petra";
-const age = 20;
+/*
+  これは複数行コメント
+*/</code></pre>
 
-// 関数
-function greet(name) {
-    return `Hello, ${name}`;
+  <h2 id="variables">変数宣言（const, let）</h2>
+  <pre><code>const price = 500;
+let count = 3;
+// var は再定義・再代入ができるが非推奨</code></pre>
+
+  <h2 id="types">データ型（プリミティブ型）</h2>
+  <ul>
+    <li>String, Number, Boolean, undefined, null, Symbol</li>
+  </ul>
+  <pre><code>console.log(typeof 'Hi');     // "string"
+console.log(typeof 123);     // "number"
+console.log(typeof true);    // "boolean"
+console.log(typeof undefined); // "undefined"
+console.log(typeof null);     // "object" ← 歴史的仕様</code></pre>
+
+  <h2 id="operators">演算子・注意点</h2>
+  <pre><code>console.log('5' * 3);  // 15
+console.log('5' + 3);        // "53"
+
+console.log(parseInt('5') + 3); // 8</code></pre>
+
+  <h2 id="condition">条件分岐（if / switch／三項演算子）</h2>
+  <pre><code>if (score >= 80) {
+  console.log('Great!');
+} else if (score >= 60) {
+  console.log('Good');
+} else {
+  console.log('OK...');
 }
-</code></pre>
 
-    <h2 id="dom">DOM操作とイベントハンドリング</h2>
-    <pre><code>document.getElementById("myButton").addEventListener("click", () => {
-    alert("クリックされました！");
-});</code></pre>
+score >= 80 ? console.log('Great!') : console.log('OK...');
 
-    <h2 id="async">非同期処理（Promise / async/await）</h2>
-    <pre><code>// Promise
-fetch("https://api.example.com/data")
-    .then(response => response.json())
-    .then(data => console.log(data));
-
-// async/await
-async function getData() {
-    const response = await fetch("https://api.example.com/data");
-    const data = await response.json();
-    console.log(data);
+switch (signal) {
+  case 'red': console.log('Stop!'); break;
+  case 'blue':
+  case 'green': console.log('Go!'); break;
+  default: console.log('Wrong Signal');
 }</code></pre>
 
-    <h2 id="modules">モダンJavaScript・TypeScript</h2>
-    <p><strong>ES Modules:</strong> import/exportを使ってコードを分割します。</p>
-    <pre><code>// math.js
-export function add(a, b) { return a + b; }
+  <h2 id="loops">ループ（for / while / do…while）</h2>
+  <pre><code>for (let i = 1; i <= 5; i++) {
+  console.log(`${i}: Hello`);
+}
 
-// main.js
-import { add } from './math.js';</code></pre>
-    <p><strong>TypeScript:</strong> 静的型チェックによりバグを事前に防止できます。</p>
+let hp = 100;
+while (hp > 0) {
+  console.log(`HP: ${hp}`);
+  hp -= 15;
+}
 
-    <h2 id="frameworks">React / Vue.js</h2>
-    <p><strong>React:</strong> コンポーネントベースでUIを構築。仮想DOMを使用。</p>
-    <p><strong>Vue.js:</strong> テンプレート構文が直感的で、学習コストが低め。</p>
+let num = -10;
+do {
+  console.log(num);
+  num += 5;
+} while (num < 0);
+</code></pre>
 
-    <h2 id="test">テスト（Jest / Mocha）</h2>
-    <pre><code>// Jest の例
-test('加算関数', () => {
-    expect(add(1, 2)).toBe(3);
-});</code></pre>
+  <h2 id="functions">関数宣言・関数式・アロー関数</h2>
+  <pre><code>// 関数宣言
+function sum(a, b) {
+  return a + b;
+}
 
-    <h2 id="libs">便利なライブラリ</h2>
-    <ul>
-        <li><strong>Lodash:</strong> 配列やオブジェクトの処理に便利</li>
-        <li><strong>Day.js:</strong> 日付操作が簡単に</li>
-    </ul>
+// 関数式
+const mul = function(a, b) {
+  return a * b;
+};
 
-    <h2 id="pwa">PWA（Progressive Web Apps）</h2>
-    <p>オフライン対応やホーム画面追加など、アプリのように使えるWebアプリを構築可能。</p>
+// アロー関数
+const double = a => a * 2;
+console.log(sum(1,2), mul(2,3), double(5));
+</code></pre>
 
-    <h2 id="realtime">WebSocketによるリアルタイム通信</h2>
-    <pre><code>const socket = new WebSocket("wss://example.com");
-socket.onmessage = (event) => {
-    console.log("受信:", event.data);
-};</code></pre>
+  <h2 id="scopes">スコープ（有効範囲）</h2>
+  <pre><code>{
+  const x = 10;
+  console.log(x); // OK
+}
+console.log(x); // エラー：x is not defined
 
-    <h2 id="graphics">グラフィックス・数理処理</h2>
-    <p>Canvas APIと三角関数を使って描画・アニメーションも可能です。</p>
-    <pre><code>// 簡単なCanvas描画
-const canvas = document.getElementById("myCanvas");
-const ctx = canvas.getContext("2d");
-ctx.arc(75, 75, 50, 0, Math.PI * 2);
-ctx.stroke();</code></pre>
+const global = 5;
+function f() {
+  const global = 3;
+  console.log(global);
+}
+f();
+console.log(global); // 5</code></pre>
 
-    <h2 id="optimize">パフォーマンス最適化</h2>
-    <ul>
-        <li>コードの再利用性向上（関数分割）</li>
-        <li>メモリリーク対策</li>
-        <li>画像の遅延読み込み（Lazy Loading）</li>
-    </ul>
+  <p>※以上は <a href="https://qiita.com/Fendo181/items/cca476da99e8f09b6b97" target="_blank">Fendo181 氏の「JavaScript 基礎文法」</a> を参考に簡潔にまとめたものです。:contentReference[oaicite:1]{index=1}</p>
 
-    <h2 id="compatibility">クロスブラウザ互換性</h2>
-    <p>最新機能を使用する際は、<a href="https://caniuse.com/" target="_blank">Can I use</a>で対応状況を確認し、Polyfillの導入も検討しましょう。</p>
-
-    <p style="margin-top: 40px;"><a href="index.html">← ポートフォリオに戻る</a></p>
 </body>
 </html>
