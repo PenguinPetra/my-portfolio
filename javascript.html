@@ -1,175 +1,309 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>JavaScript基礎と体験チュートリアル</title>
+  <meta charset="UTF-8" />
+  <title>JavaScript基礎と体験チュートリアル＋Canvasお絵かきボード</title>
   <style>
     body { font-family: sans-serif; line-height: 1.7; margin: 40px; }
     h1, h2, h3 { color: #333; }
-    pre { background: #f4f4f4; padding: 10px; overflow: auto; }
+    pre { background: #f4f4f4; padding: 10px; overflow: auto; white-space: pre-wrap; }
     .demo-box { border: 1px solid #ccc; padding: 20px; margin-top: 10px; }
     input, button { padding: 5px; }
     .output { margin-top: 10px; color: green; }
+    img.slide { width: 128px; height: 128px; }
+    #paintCanvas {
+      border: 1px solid #000;
+      cursor: crosshair;
+      background-color: #fff;
+      display: block;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
 
   <h1>JavaScriptとは？</h1>
   <p>
-    JavaScriptは、ウェブページに動きを与えるプログラミング言語です。HTMLやCSSと組み合わせて、ユーザーと対話する機能（ボタンを押す、情報を表示するなど）を実現できます。
-    ここでは、JavaScriptの基本を学びながら、実際に体験できるミニアプリも紹介します。
+    JavaScriptは、ウェブページに動きを与えるプログラミング言語です。ここでは、基本的な構文を学びながら、実際に動くアプリを体験できます。
   </p>
 
   <h1>JavaScriptの基礎</h1>
 
   <h2>変数と定数</h2>
-  <pre><code>let name = "太郎";
+  <pre><code>// 変数nameに文字列「太郎」を代入
+let name = "太郎";
+// 定数ageに数値20を代入
 const age = 20;
-document.getElementById("output1").textContent = `名前: ${name}、年齢: ${age}`;</code></pre>
+// 結果をHTMLに表示する（名前と年齢）
+document.getElementById("output1").textContent = `名前: ${name}、年齢: ${age}`;
+  </code></pre>
   <button onclick="runExample1()">このコードを実行する</button>
   <div id="output1" class="output"></div>
 
   <h2>関数</h2>
-  <pre><code>function sayHello() {
+  <pre><code>// sayHelloという関数を定義
+function sayHello() {
+  // アラートで「こんにちは！」を表示
   alert("こんにちは！");
 }
-sayHello();</code></pre>
+// 関数を呼び出す
+sayHello();
+  </code></pre>
   <button onclick="runExample2()">このコードを実行する</button>
 
   <h2>条件分岐</h2>
-  <pre><code>let score = 85;
+  <pre><code>// 変数scoreに85を代入
+let score = 85;
+// メッセージ用の変数を用意
 let message = "";
+// scoreが80以上なら「よくできました」、そうでなければ「がんばりましょう」
 if (score >= 80) {
   message = "よくできました";
 } else {
   message = "がんばりましょう";
 }
-document.getElementById("output3").textContent = message;</code></pre>
+// 結果をHTMLに表示
+document.getElementById("output3").textContent = message;
+  </code></pre>
   <button onclick="runExample3()">このコードを実行する</button>
   <div id="output3" class="output"></div>
 
   <h2>イベントとDOM</h2>
-  <pre><code>document.getElementById("demoBtn").addEventListener("click", function() {
+  <pre><code>// idがdemoBtnの要素にクリックイベントを設定
+document.getElementById("demoBtn").addEventListener("click", function() {
+  // クリックされたらアラートを表示
   alert("ボタンがクリックされました");
-});</code></pre>
+});
+  </code></pre>
   <button id="demoBtn">デモボタン</button>
 
   <hr>
 
-  <h1>おみくじアプリ作成チュートリアル</h1>
-  <p>このチュートリアルでは、ボタンを押すとランダムに運勢が表示される簡単なアプリを体験します。</p>
+  <h1>おみくじアプリ体験（コード付き）</h1>
+  <p>ボタンを押すとランダムに運勢が表示されるおみくじアプリです。</p>
+  <pre><code>// 運勢の候補を配列で定義
+const fortunes = ["大吉", "中吉", "小吉", "凶", "大凶"];
+
+// おみくじボタンの要素を取得
+const omikujiBtn = document.getElementById("omikujiBtn");
+
+// ボタンがクリックされたときの処理を設定
+omikujiBtn.addEventListener("click", function () {
+  // 0から配列の長さまでのランダムな整数を生成
+  const index = Math.floor(Math.random() * fortunes.length);
+  // 選んだ運勢を結果表示エリアにセット
+  document.getElementById("result").textContent = fortunes[index];
+});
+  </code></pre>
   <div class="demo-box">
     <button id="omikujiBtn">おみくじを引く</button>
     <div id="result" class="output"></div>
   </div>
 
-  <h1>ToDoリスト作成チュートリアル</h1>
-  <p>タスクを追加・削除できるシンプルなToDoリストを作ってみましょう。</p>
+  <h1>ToDoリストアプリ体験（コード付き）</h1>
+  <p>タスクを追加・削除できるシンプルなToDoリストです。追加したタスクをクリックすると削除されます。</p>
+  <pre><code>// 「追加」ボタンにクリックイベントを設定
+document.getElementById("addTask").addEventListener("click", () => {
+  // 入力欄のテキストを取得し前後の空白を削除
+  const taskInput = document.getElementById("taskInput");
+  const taskText = taskInput.value.trim();
+  // タスクのリスト要素を取得
+  const taskList = document.getElementById("taskList");
+  // テキストが空でなければ処理
+  if (taskText !== "") {
+    // 新しい<li>要素を作成し、タスクテキストをセット
+    const li = document.createElement("li");
+    li.textContent = taskText;
+    // クリックされたらそのタスクをリストから削除するイベントを設定
+    li.addEventListener("click", () => taskList.removeChild(li));
+    // タスクをリストに追加
+    taskList.appendChild(li);
+    // 入力欄を空にする
+    taskInput.value = "";
+  }
+});
+  </code></pre>
   <div class="demo-box">
-    <input type="text" id="taskInput" placeholder="タスクを入力">
+    <input type="text" id="taskInput" placeholder="タスクを入力" />
     <button id="addTask">追加</button>
     <ul id="taskList"></ul>
   </div>
 
-  <h1>お天気検索アプリ作成チュートリアル</h1>
-  <p>OpenWeatherMap APIを使って、都市の天気を検索します（APIキーが必要）。</p>
-  <div class="demo-box">
-    <input type="text" id="city" placeholder="都市名を入力">
-    <button id="searchWeather">検索</button>
-    <div id="weatherResult" class="output"></div>
-  </div>
-
-  <h1>jQueryを使った画像スライダー作成チュートリアル</h1>
-  <p>画像が切り替わるスライダーを体験してみましょう。</p>
+  <h1>画像スライダー体験（コード付き）</h1>
+  <p>「次へ」ボタンを押すと、画像が順に切り替わります。</p>
+  <pre><code>// 現在表示しているスライドのインデックス
+let current = 0;
+// 「次へ」ボタンにクリックイベントを設定
+document.getElementById("next").addEventListener("click", () => {
+  // すべてのスライド画像を取得
+  const slides = document.querySelectorAll(".slide");
+  // 現在のスライドを非表示に
+  slides[current].style.display = "none";
+  // 次のスライドのインデックスを計算（最後までいったら最初に戻る）
+  current = (current + 1) % slides.length;
+  // 次のスライドを表示
+  slides[current].style.display = "block";
+});
+  </code></pre>
   <div class="demo-box">
     <div id="slider">
-      <img src="https://via.placeholder.com/300x200?text=1" class="slide" style="display:block;">
-      <img src="https://via.placeholder.com/300x200?text=2" class="slide" style="display:none;">
-      <img src="https://via.placeholder.com/300x200?text=3" class="slide" style="display:none;">
+      <img src="https://img.icons8.com/color/128/icons8-javascript-128.png" alt="JavaScript" class="slide" style="display:block;" />
+      <img src="https://img.icons8.com/color/48/icons8-html-5-48.png" alt="HTML5" class="slide" style="display:none;" />
+      <img src="https://img.icons8.com/color/48/icons8-css3-48.png" alt="CSS3" class="slide" style="display:none;" />
+      <img src="https://img.icons8.com/color/96/icons8-c++-96.png" alt="C++" class="slide" style="display:none;" />
+      <img src="https://img.icons8.com/color/96/icons8-python-96.png" alt="Python" class="slide" style="display:none;" />
     </div>
     <button id="next">次へ</button>
   </div>
 
-  <script>
-    // JavaScript基礎 実行用関数
-    function runExample1() {
-      let name = "太郎";
-      const age = 20;
-      document.getElementById("output1").textContent = `名前: ${name}、年齢: ${age}`;
+  <hr>
+
+  <h1>Canvas API入門：インタラクティブな「お絵かきボード」</h1>
+  <p>マウスでキャンバス上に自由に線を描ける簡単なウェブアプリです。Canvas APIの基本が学べます。</p>
+
+  <h2>準備</h2>
+  <p>以下のcanvas要素が描画領域になります。</p>
+  <pre><code>&lt;canvas id="paintCanvas" width="600" height="400" style="border:1px solid #000;"&gt;&lt;/canvas&gt;</code></pre>
+
+  <canvas id="paintCanvas" width="600" height="400"></canvas>
+
+  <h2>JavaScriptコード（コメント付き）</h2>
+  <pre><code>// canvas要素を取得
+const canvas = document.getElementById('paintCanvas');
+// 2D描画用のコンテキストを取得
+const ctx = canvas.getContext('2d');
+
+// 描画中かどうかのフラグ（マウス押している間だけtrue）
+let isDrawing = false;
+// 最後に描画した座標を保持する変数
+let lastX = 0;
+let lastY = 0;
+
+// マウスボタンが押された時のイベント
+canvas.addEventListener('mousedown', (e) => {
+  isDrawing = true;          // 描画開始フラグをtrueに
+  lastX = e.offsetX;         // 始点のX座標を記録
+  lastY = e.offsetY;         // 始点のY座標を記録
+});
+
+// マウスが動いた時のイベント
+canvas.addEventListener('mousemove', (e) => {
+  if (!isDrawing) return;    // 描画中でなければ何もしない
+
+  ctx.beginPath();           // 新しいパスを開始
+  ctx.moveTo(lastX, lastY);  // 始点にペンを動かす
+  ctx.lineTo(e.offsetX, e.offsetY); // 現在のマウス位置まで線を引く
+
+  ctx.strokeStyle = '#000';  // 線の色は黒
+  ctx.lineWidth = 1;         // 線の太さは1px
+  ctx.stroke();              // 実際に線を描く
+
+  lastX = e.offsetX;         // 現在位置を次の始点として記憶
+  lastY = e.offsetY;
+});
+
+// マウスボタンを離した時のイベント
+canvas.addEventListener('mouseup', () => {
+  isDrawing = false;         // 描画終了
+});
+
+// マウスがキャンバス外に出た時も描画終了
+canvas.addEventListener('mouseout', () => {
+  isDrawing = false;
+});
+  </code></pre>
+
+<script>
+  // JavaScript基礎 実行用
+  function runExample1() {
+    let name = "太郎";
+    const age = 20;
+    document.getElementById("output1").textContent = `名前: ${name}、年齢: ${age}`;
+  }
+
+  function runExample2() {
+    alert("こんにちは！");
+  }
+
+  function runExample3() {
+    let score = 85;
+    let message = "";
+    if (score >= 80) {
+      message = "よくできました";
+    } else {
+      message = "がんばりましょう";
     }
+    document.getElementById("output3").textContent = message;
+  }
 
-    function runExample2() {
-      alert("こんにちは！");
+  // DOM イベントボタン
+  document.getElementById("demoBtn").addEventListener("click", function () {
+    alert("ボタンがクリックされました");
+  });
+
+  // おみくじ
+  const fortunes = ["大吉", "中吉", "小吉", "凶", "大凶"];
+  document.getElementById("omikujiBtn").addEventListener("click", function () {
+    const index = Math.floor(Math.random() * fortunes.length);
+    document.getElementById("result").textContent = fortunes[index];
+  });
+
+  // ToDo
+  document.getElementById("addTask").addEventListener("click", () => {
+    const taskInput = document.getElementById("taskInput");
+    const taskText = taskInput.value.trim();
+    const taskList = document.getElementById("taskList");
+    if (taskText !== "") {
+      const li = document.createElement("li");
+      li.textContent = taskText;
+      li.addEventListener("click", () => taskList.removeChild(li));
+      taskList.appendChild(li);
+      taskInput.value = "";
     }
+  });
 
-    function runExample3() {
-      let score = 85;
-      let message = "";
-      if (score >= 80) {
-        message = "よくできました";
-      } else {
-        message = "がんばりましょう";
-      }
-      document.getElementById("output3").textContent = message;
-    }
+  // スライダー
+  let current = 0;
+  document.getElementById("next").addEventListener("click", () => {
+    const slides = document.querySelectorAll(".slide");
+    slides[current].style.display = "none";
+    current = (current + 1) % slides.length;
+    slides[current].style.display = "block";
+  });
 
-    // イベントとDOMの例
-    document.getElementById("demoBtn").addEventListener("click", function() {
-      alert("ボタンがクリックされました");
-    });
+  // Canvas お絵かきボード
+  const canvas = document.getElementById('paintCanvas');
+  const ctx = canvas.getContext('2d');
+  let isDrawing = false;
+  let lastX = 0;
+  let lastY = 0;
 
-    // おみくじアプリ
-    const fortunes = ["大吉", "中吉", "小吉", "凶", "大凶"];
-    document.getElementById("omikujiBtn").addEventListener("click", function () {
-      const index = Math.floor(Math.random() * fortunes.length);
-      document.getElementById("result").textContent = fortunes[index];
-    });
+  canvas.addEventListener('mousedown', (e) => {
+    isDrawing = true;
+    lastX = e.offsetX;
+    lastY = e.offsetY;
+  });
 
-    // ToDoリスト
-    document.getElementById("addTask").addEventListener("click", () => {
-      const taskInput = document.getElementById("taskInput");
-      const taskText = taskInput.value.trim();
-      const taskList = document.getElementById("taskList");
-      if (taskText !== "") {
-        const li = document.createElement("li");
-        li.textContent = taskText;
-        li.addEventListener("click", () => taskList.removeChild(li));
-        taskList.appendChild(li);
-        taskInput.value = "";
-      }
-    });
+  canvas.addEventListener('mousemove', (e) => {
+    if (!isDrawing) return;
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.strokeStyle = '#000';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    lastX = e.offsetX;
+    lastY = e.offsetY;
+  });
 
-    // 天気検索（APIキー必要）
-    const API_KEY = "YOUR_API_KEY"; // ← 自分のAPIキーを入力
-    document.getElementById("searchWeather").addEventListener("click", () => {
-      const city = document.getElementById("city").value.trim();
-      if (city) {
-        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=ja`)
-          .then(response => response.json())
-          .then(data => {
-            if (data.weather) {
-              document.getElementById("weatherResult").innerHTML =
-                `${data.name}の天気: ${data.weather[0].description}、気温: ${data.main.temp}℃`;
-            } else {
-              document.getElementById("weatherResult").textContent = "天気情報が見つかりませんでした。";
-            }
-          })
-          .catch(() => document.getElementById("weatherResult").textContent = "エラーが発生しました。");
-      }
-    });
+  canvas.addEventListener('mouseup', () => {
+    isDrawing = false;
+  });
 
-    // スライダー
-    let current = 0;
-    document.getElementById("next").addEventListener("click", () => {
-      const slides = document.querySelectorAll(".slide");
-      slides[current].style.display = "none";
-      current = (current + 1) % slides.length;
-      slides[current].style.display = "block";
-    });
-  </script>
-
-  <!-- jQuery 読み込み（画像スライダー用、今は未使用）-->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  canvas.addEventListener('mouseout', () => {
+    isDrawing = false;
+  });
+</script>
 
 </body>
 </html>
