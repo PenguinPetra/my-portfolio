@@ -24,11 +24,6 @@
       margin: 5px 0 15px 0;
       border: 1px solid #c3e6cb;
     }
-    .slider img {
-      width: 100px;
-      height: auto;
-      margin: 10px;
-    }
     .todo-item {
       display: flex;
       justify-content: space-between;
@@ -51,7 +46,6 @@
       background: white;
     }
   </style>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
   <h1>JavaScriptとは？</h1>
@@ -59,106 +53,99 @@
     JavaScriptは、ウェブページに動きを与えるプログラミング言語です。ここでは、基本的な構文を学びながら、実際に動くアプリを体験できます。
   </p>
 
-  <h1>JavaScriptの基礎</h1>
-
-  <h2>変数と定数</h2>
-  <pre><code>let name = "太郎";
-const age = 20;
-document.getElementById("output1").textContent = `名前: ${name}、年齢: ${age}`;
-  </code></pre>
-  <button onclick="runExample1()">このコードを実行する</button>
-  <div id="output1" class="output"></div>
-
-  <h2>関数</h2>
-  <pre><code>function sayHello() {
-  alert("こんにちは！");
-}
-sayHello();
-  </code></pre>
-  <button onclick="runExample2()">このコードを実行する</button>
-
-  <h2>条件分岐</h2>
-  <pre><code>let score = 85;
-let message = "";
-if (score >= 80) {
-  message = "よくできました";
-} else {
-  message = "がんばりましょう";
-}
-document.getElementById("output3").textContent = message;
-  </code></pre>
-  <button onclick="runExample3(85)">score=85を試す</button>
-  <button onclick="runExample3(60)">score=60を試す</button>
-  <div id="output3" class="output"></div>
-
-  <h2>イベントとDOM</h2>
-  <pre><code>document.getElementById("demoBtn").addEventListener("click", function() {
-  alert("ボタンがクリックされました");
-});
-  </code></pre>
-  <button id="demoBtn">デモボタン</button>
-
-  <hr>
-
-  <h2>スライダーで表示される画像</h2>
-  <div class="slider">
-    <img src="icons8-javascript-128.png" alt="JS">
-    <img src="icons8-html-5-48.png" alt="HTML">
-    <img src="icons8-css3-48.png" alt="CSS">
-    <img src="icons_c++-96.png" alt="C++">
-    <img src="icons_python-96.png" alt="Python">
-  </div>
-
-  <hr>
-
-  <h2>JavaScriptでおみくじ</h2>
+  <!-- === おみくじ === -->
+  <h2>おみくじ</h2>
+  <p>
+    おみくじは上記の乱数や関数を用いて作成しました。ボタンをクリックするとおみくじができます。
+  </p>
   <button onclick="drawOmikuji()">おみくじを引く</button>
   <div class="output" id="omikujiResult"></div>
 
+  <pre><code>
+// おみくじ機能
+function drawOmikuji() {
+  const results = ["大吉", "中吉", "小吉", "凶"];    // おみくじの種類を配列で定義
+  const index = Math.floor(Math.random() * results.length);  // ランダムなインデックスを生成
+  document.getElementById("omikujiResult").textContent = `結果: ${results[index]}`;  // 結果を画面に表示
+}
+  </code></pre>
+
   <hr>
 
+  <!-- === ToDoリスト === -->
   <h2>ToDoリスト</h2>
+  <p>
+    ToDoリストは、入力したタスクを画面に追加し、削除ボタンで消すことができます。イベントや要素生成を学ぶのに最適です。
+  </p>
   <input type="text" id="todoInput" placeholder="やることを入力">
   <button onclick="addTodo()">追加</button>
   <ul id="todoList"></ul>
 
+  <pre><code>
+// ToDoリスト機能
+function addTodo() {
+  const input = document.getElementById("todoInput");     // 入力ボックスを取得
+  const value = input.value.trim();                       // 入力値を取得し前後の空白を除去
+  if (!value) return;                                     // 空なら追加しない
+
+  const li = document.createElement("li");                // li要素を作成
+  li.className = "todo-item";                             // クラスを設定
+  li.textContent = value;                                 // 入力値をテキストとして追加
+
+  const delBtn = document.createElement("button");        // 削除ボタンを作成
+  delBtn.textContent = "削除";                             // ボタンに文字を追加
+  delBtn.onclick = () => li.remove();                     // クリック時にliを削除
+
+  li.appendChild(delBtn);                                 // liにボタンを追加
+  document.getElementById("todoList").appendChild(li);    // リストにliを追加
+  input.value = "";                                       // 入力ボックスをクリア
+}
+  </code></pre>
+
   <hr>
 
+  <!-- === お絵かきボード === -->
   <h2>お絵描きボード</h2>
+  <p>
+    お絵描きボードでは、マウスで線を描くことができます。canvas要素を使い、マウスイベントで描画を制御します。
+  </p>
   <canvas id="canvas" width="500" height="300"></canvas><br>
   <button onclick="clearCanvas()">全消し</button>
 
+  <pre><code>
+const canvas = document.getElementById("canvas");         // canvas要素を取得
+const ctx = canvas.getContext("2d");                      // 2D描画コンテキストを取得
+let drawing = false;                                      // 描画中かどうかのフラグ
+
+canvas.addEventListener("mousedown", e => {
+  drawing = true;                                         // マウス押下で描画開始
+  ctx.beginPath();                                        // 新しいパスを開始
+  ctx.moveTo(e.offsetX, e.offsetY);                       // 開始位置を設定
+});
+
+canvas.addEventListener("mousemove", e => {
+  if (!drawing) return;                                   // 描画中でなければ終了
+  ctx.lineTo(e.offsetX, e.offsetY);                       // 線を現在位置まで引く
+  ctx.stroke();                                           // 描画する
+});
+
+canvas.addEventListener("mouseup", () => drawing = false);  // マウス離しで描画終了
+
+function clearCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);       // 全体をクリア
+}
+  </code></pre>
+
+  <!-- JavaScriptの動作コード -->
   <script>
-    function runExample1() {
-      let name = "太郎";
-      const age = 20;
-      document.getElementById("output1").textContent = `名前: ${name}、年齢: ${age}`;
-    }
-
-    function runExample2() {
-      alert("こんにちは！");
-    }
-
-    function runExample3(score) {
-      let message = "";
-      if (score >= 80) {
-        message = "よくできました";
-      } else {
-        message = "がんばりましょう";
-      }
-      document.getElementById("output3").textContent = message;
-    }
-
-    document.getElementById("demoBtn").addEventListener("click", function() {
-      alert("ボタンがクリックされました");
-    });
-
+    // おみくじ
     function drawOmikuji() {
       const results = ["大吉", "中吉", "小吉", "凶"];
       const index = Math.floor(Math.random() * results.length);
       document.getElementById("omikujiResult").textContent = `結果: ${results[index]}`;
     }
 
+    // ToDoリスト
     function addTodo() {
       const input = document.getElementById("todoInput");
       const value = input.value.trim();
@@ -177,6 +164,7 @@ document.getElementById("output3").textContent = message;
       input.value = "";
     }
 
+    // お絵描き
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
     let drawing = false;
