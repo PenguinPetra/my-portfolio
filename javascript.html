@@ -2,307 +2,173 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>JavaScript基礎と体験チュートリアル＋Canvasお絵かきボード</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JavaScript学習チュートリアル</title>
   <style>
-    body { font-family: sans-serif; line-height: 1.7; margin: 40px; }
-    h1, h2, h3 { color: #333; }
-    pre { background: #f4f4f4; padding: 10px; overflow: auto; white-space: pre-wrap; }
-    .demo-box { border: 1px solid #ccc; padding: 20px; margin-top: 10px; }
-    input, button { padding: 5px; }
-    .output { margin-top: 10px; color: green; }
-    img.slide { width: 128px; height: 128px; }
-    #paintCanvas {
-      border: 1px solid #000;
-      cursor: crosshair;
-      background-color: #fff;
-      display: block;
-      margin-top: 10px;
-    }
+    body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+    h1, h2 { color: #333; }
+    .code-block { background: #f4f4f4; padding: 10px; border-left: 4px solid #ccc; white-space: pre-wrap; }
+    .output { margin-top: 10px; font-weight: bold; }
+    #slider img { width: 100px; height: auto; margin: 0 10px; }
+    canvas { border: 1px solid #000; display: block; margin-top: 10px; touch-action: none; }
+    .tools { margin-top: 10px; }
+    button { padding: 6px 12px; margin-right: 5px; }
   </style>
 </head>
 <body>
 
-  <h1>JavaScriptとは？</h1>
-  <p>
-    JavaScriptは、ウェブページに動きを与えるプログラミング言語です。ここでは、基本的な構文を学びながら、実際に動くアプリを体験できます。
-  </p>
+<h1>JavaScript基礎と体験チュートリアル</h1>
 
-  <h1>JavaScriptの基礎</h1>
+<h2>JavaScriptとは？</h2>
+<p>
+JavaScriptは、Webページを「動的に」するプログラミング言語です。ユーザーとのインタラクション（例：クリック、入力、スクロールなど）に応じて画面を変えることができます。
+</p>
 
-  <h2>変数と定数</h2>
-  <pre><code>// 変数nameに文字列「太郎」を代入
-let name = "太郎";
-// 定数ageに数値20を代入
-const age = 20;
-// 結果をHTMLに表示する（名前と年齢）
-document.getElementById("output1").textContent = `名前: ${name}、年齢: ${age}`;
-  </code></pre>
-  <button onclick="runExample1()">このコードを実行する</button>
-  <div id="output1" class="output"></div>
+<h2>基礎：変数と関数</h2>
+<div class="code-block">
+let name = "太郎";                      // 名前を変数nameに代入<br>
+const age = 20;                        // 年齢を定数ageに代入<br>
+function showProfile() {              // 関数を定義<br>
+&nbsp;&nbsp;document.getElementById("output1").textContent = `名前: ${name}, 年齢: ${age}`;  // 結果を表示
+}<br>
+showProfile();                         // 関数の実行
+</div>
+<div id="output1" class="output"></div>
 
-  <h2>関数</h2>
-  <pre><code>// sayHelloという関数を定義
-function sayHello() {
-  // アラートで「こんにちは！」を表示
-  alert("こんにちは！");
+<h2>おみくじ🎯</h2>
+<div class="code-block">
+function drawOmikuji() {                                       // おみくじ関数定義<br>
+&nbsp;&nbsp;const results = ["大吉", "中吉", "小吉", "吉", "末吉", "凶"]; // 結果の選択肢<br>
+&nbsp;&nbsp;const result = results[Math.floor(Math.random() * results.length)]; // ランダム抽選<br>
+&nbsp;&nbsp;document.getElementById("omikujiResult").textContent = "結果：" + result; // 結果を表示
 }
-// 関数を呼び出す
-sayHello();
-  </code></pre>
-  <button onclick="runExample2()">このコードを実行する</button>
+</div>
+<button onclick="drawOmikuji()">おみくじを引く</button>
+<div id="omikujiResult" class="output"></div>
 
-  <h2>条件分岐</h2>
-  <pre><code>// 変数scoreに85を代入
-let score = 85;
-// メッセージ用の変数を用意
-let message = "";
-// scoreが80以上なら「よくできました」、そうでなければ「がんばりましょう」
-if (score >= 80) {
-  message = "よくできました";
-} else {
-  message = "がんばりましょう";
-}
-// 結果をHTMLに表示
-document.getElementById("output3").textContent = message;
-  </code></pre>
-  <button onclick="runExample3()">このコードを実行する</button>
-  <div id="output3" class="output"></div>
+<h2>画像スライダー（jQueryなし）</h2>
+<div id="slider">
+  <img src="icons8-javascript-128.png" alt="JS">
+  <img src="icons8-html-5-48.png" alt="HTML">
+  <img src="icons8-css3-48.png" alt="CSS">
+  <img src="icons_c++-96.png" alt="C++">
+  <img src="icons_python-96.png" alt="Python">
+</div>
 
-  <h2>イベントとDOM</h2>
-  <pre><code>// idがdemoBtnの要素にクリックイベントを設定
-document.getElementById("demoBtn").addEventListener("click", function() {
-  // クリックされたらアラートを表示
-  alert("ボタンがクリックされました");
+<h2>Canvasでお絵かき🎨</h2>
+
+<p>キャンバス上にマウスやタッチで自由に線を描きましょう！</p>
+
+<div class="tools">
+  <button onclick="clearCanvas()">すべて消す</button>
+</div>
+<canvas id="drawCanvas" width="500" height="300"></canvas>
+
+<div class="code-block">
+// キャンバスの取得と初期設定<br>
+const canvas = document.getElementById('drawCanvas'); // canvas要素取得<br>
+const ctx = canvas.getContext('2d');                 // 2D描画コンテキスト取得<br>
+let drawing = false;                                  // 描画中フラグ<br>
+let lastX = 0, lastY = 0;                             // 前回の座標保存<br>
+const history = [];                                   // 描画履歴保存用<br><br>
+
+// 線スタイルの設定<br>
+ctx.strokeStyle = 'black';                            // 線の色<br>
+ctx.lineWidth = 2;                                    // 線の太さ<br>
+ctx.lineJoin = 'round';                               // 線の角を丸く<br>
+ctx.lineCap = 'round';                                // 線の端も丸く<br><br>
+
+// 描画開始<br>
+canvas.addEventListener('mousedown', (e) => {<br>
+&nbsp;&nbsp;drawing = true;<br>
+&nbsp;&nbsp;[lastX, lastY] = [e.offsetX, e.offsetY];<br>
+&nbsp;&nbsp;ctx.beginPath();<br>
+&nbsp;&nbsp;ctx.moveTo(lastX, lastY);<br>
+});<br><br>
+
+// 描画中<br>
+canvas.addEventListener('mousemove', (e) => {<br>
+&nbsp;&nbsp;if (!drawing) return;<br>
+&nbsp;&nbsp;ctx.lineTo(e.offsetX, e.offsetY);<br>
+&nbsp;&nbsp;ctx.stroke();<br>
+&nbsp;&nbsp;[lastX, lastY] = [e.offsetX, e.offsetY];<br>
+});<br><br>
+
+// 描画終了時に画像保存<br>
+canvas.addEventListener('mouseup', () => {<br>
+&nbsp;&nbsp;drawing = false;<br>
+&nbsp;&nbsp;history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));<br>
+});<br>
+canvas.addEventListener('mouseleave', () => drawing = false);<br><br>
+
+// 全消し<br>
+function clearCanvas() {<br>
+&nbsp;&nbsp;ctx.clearRect(0, 0, canvas.width, canvas.height);<br>
+&nbsp;&nbsp;history.length = 0;<br>
+}<br><br>
+
+// 右クリックで一つ戻す<br>
+canvas.addEventListener('contextmenu', (e) => {<br>
+&nbsp;&nbsp;e.preventDefault();<br>
+&nbsp;&nbsp;if (history.length > 0) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const img = history.pop();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ctx.putImageData(img, 0, 0);<br>
+&nbsp;&nbsp;}<br>
 });
-  </code></pre>
-  <button id="demoBtn">デモボタン</button>
-
-  <hr>
-
-  <h1>おみくじアプリ体験（コード付き）</h1>
-  <p>ボタンを押すとランダムに運勢が表示されるおみくじアプリです。</p>
-  <pre><code>// 運勢の候補を配列で定義
-const fortunes = ["大吉", "中吉", "小吉", "凶", "大凶"];
-
-// おみくじボタンの要素を取得
-const omikujiBtn = document.getElementById("omikujiBtn");
-
-// ボタンがクリックされたときの処理を設定
-omikujiBtn.addEventListener("click", function () {
-  // 0から配列の長さまでのランダムな整数を生成
-  const index = Math.floor(Math.random() * fortunes.length);
-  // 選んだ運勢を結果表示エリアにセット
-  document.getElementById("result").textContent = fortunes[index];
-});
-  </code></pre>
-  <div class="demo-box">
-    <button id="omikujiBtn">おみくじを引く</button>
-    <div id="result" class="output"></div>
-  </div>
-
-  <h1>ToDoリストアプリ体験（コード付き）</h1>
-  <p>タスクを追加・削除できるシンプルなToDoリストです。追加したタスクをクリックすると削除されます。</p>
-  <pre><code>// 「追加」ボタンにクリックイベントを設定
-document.getElementById("addTask").addEventListener("click", () => {
-  // 入力欄のテキストを取得し前後の空白を削除
-  const taskInput = document.getElementById("taskInput");
-  const taskText = taskInput.value.trim();
-  // タスクのリスト要素を取得
-  const taskList = document.getElementById("taskList");
-  // テキストが空でなければ処理
-  if (taskText !== "") {
-    // 新しい<li>要素を作成し、タスクテキストをセット
-    const li = document.createElement("li");
-    li.textContent = taskText;
-    // クリックされたらそのタスクをリストから削除するイベントを設定
-    li.addEventListener("click", () => taskList.removeChild(li));
-    // タスクをリストに追加
-    taskList.appendChild(li);
-    // 入力欄を空にする
-    taskInput.value = "";
-  }
-});
-  </code></pre>
-  <div class="demo-box">
-    <input type="text" id="taskInput" placeholder="タスクを入力" />
-    <button id="addTask">追加</button>
-    <ul id="taskList"></ul>
-  </div>
-
-  <h1>画像スライダー体験（コード付き）</h1>
-  <p>「次へ」ボタンを押すと、画像が順に切り替わります。</p>
-  <pre><code>// 現在表示しているスライドのインデックス
-let current = 0;
-// 「次へ」ボタンにクリックイベントを設定
-document.getElementById("next").addEventListener("click", () => {
-  // すべてのスライド画像を取得
-  const slides = document.querySelectorAll(".slide");
-  // 現在のスライドを非表示に
-  slides[current].style.display = "none";
-  // 次のスライドのインデックスを計算（最後までいったら最初に戻る）
-  current = (current + 1) % slides.length;
-  // 次のスライドを表示
-  slides[current].style.display = "block";
-});
-  </code></pre>
-  <div class="demo-box">
-    <div id="slider">
-      <img src="https://img.icons8.com/color/128/icons8-javascript-128.png" alt="JavaScript" class="slide" style="display:block;" />
-      <img src="https://img.icons8.com/color/48/icons8-html-5-48.png" alt="HTML5" class="slide" style="display:none;" />
-      <img src="https://img.icons8.com/color/48/icons8-css3-48.png" alt="CSS3" class="slide" style="display:none;" />
-      <img src="https://img.icons8.com/color/96/icons8-c++-96.png" alt="C++" class="slide" style="display:none;" />
-      <img src="https://img.icons8.com/color/96/icons8-python-96.png" alt="Python" class="slide" style="display:none;" />
-    </div>
-    <button id="next">次へ</button>
-  </div>
-
-  <hr>
-
-  <h1>Canvas API入門：インタラクティブな「お絵かきボード」</h1>
-  <p>マウスでキャンバス上に自由に線を描ける簡単なウェブアプリです。Canvas APIの基本が学べます。</p>
-
-  <h2>準備</h2>
-  <p>以下のcanvas要素が描画領域になります。</p>
-  <pre><code>&lt;canvas id="paintCanvas" width="600" height="400" style="border:1px solid #000;"&gt;&lt;/canvas&gt;</code></pre>
-
-  <canvas id="paintCanvas" width="600" height="400"></canvas>
-
-  <h2>JavaScriptコード（コメント付き）</h2>
-  <pre><code>// canvas要素を取得
-const canvas = document.getElementById('paintCanvas');
-// 2D描画用のコンテキストを取得
-const ctx = canvas.getContext('2d');
-
-// 描画中かどうかのフラグ（マウス押している間だけtrue）
-let isDrawing = false;
-// 最後に描画した座標を保持する変数
-let lastX = 0;
-let lastY = 0;
-
-// マウスボタンが押された時のイベント
-canvas.addEventListener('mousedown', (e) => {
-  isDrawing = true;          // 描画開始フラグをtrueに
-  lastX = e.offsetX;         // 始点のX座標を記録
-  lastY = e.offsetY;         // 始点のY座標を記録
-});
-
-// マウスが動いた時のイベント
-canvas.addEventListener('mousemove', (e) => {
-  if (!isDrawing) return;    // 描画中でなければ何もしない
-
-  ctx.beginPath();           // 新しいパスを開始
-  ctx.moveTo(lastX, lastY);  // 始点にペンを動かす
-  ctx.lineTo(e.offsetX, e.offsetY); // 現在のマウス位置まで線を引く
-
-  ctx.strokeStyle = '#000';  // 線の色は黒
-  ctx.lineWidth = 1;         // 線の太さは1px
-  ctx.stroke();              // 実際に線を描く
-
-  lastX = e.offsetX;         // 現在位置を次の始点として記憶
-  lastY = e.offsetY;
-});
-
-// マウスボタンを離した時のイベント
-canvas.addEventListener('mouseup', () => {
-  isDrawing = false;         // 描画終了
-});
-
-// マウスがキャンバス外に出た時も描画終了
-canvas.addEventListener('mouseout', () => {
-  isDrawing = false;
-});
-  </code></pre>
+</div>
 
 <script>
-  // JavaScript基礎 実行用
-  function runExample1() {
-    let name = "太郎";
-    const age = 20;
-    document.getElementById("output1").textContent = `名前: ${name}、年齢: ${age}`;
+// おみくじ関数
+function drawOmikuji() {
+  const results = ["大吉", "中吉", "小吉", "吉", "末吉", "凶"];
+  const result = results[Math.floor(Math.random() * results.length)];
+  document.getElementById("omikujiResult").textContent = "結果：" + result;
+}
+
+// お絵かきボード
+const canvas = document.getElementById('drawCanvas');
+const ctx = canvas.getContext('2d');
+let drawing = false;
+let lastX = 0, lastY = 0;
+const history = [];
+
+ctx.strokeStyle = 'black';
+ctx.lineWidth = 2;
+ctx.lineJoin = 'round';
+ctx.lineCap = 'round';
+
+canvas.addEventListener('mousedown', (e) => {
+  drawing = true;
+  [lastX, lastY] = [e.offsetX, e.offsetY];
+  ctx.beginPath();
+  ctx.moveTo(lastX, lastY);
+});
+
+canvas.addEventListener('mousemove', (e) => {
+  if (!drawing) return;
+  ctx.lineTo(e.offsetX, e.offsetY);
+  ctx.stroke();
+  [lastX, lastY] = [e.offsetX, e.offsetY];
+});
+
+canvas.addEventListener('mouseup', () => {
+  drawing = false;
+  history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+});
+canvas.addEventListener('mouseleave', () => drawing = false);
+
+function clearCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  history.length = 0;
+}
+
+canvas.addEventListener('contextmenu', (e) => {
+  e.preventDefault();
+  if (history.length > 0) {
+    const img = history.pop();
+    ctx.putImageData(img, 0, 0);
   }
-
-  function runExample2() {
-    alert("こんにちは！");
-  }
-
-  function runExample3() {
-    let score = 85;
-    let message = "";
-    if (score >= 80) {
-      message = "よくできました";
-    } else {
-      message = "がんばりましょう";
-    }
-    document.getElementById("output3").textContent = message;
-  }
-
-  // DOM イベントボタン
-  document.getElementById("demoBtn").addEventListener("click", function () {
-    alert("ボタンがクリックされました");
-  });
-
-  // おみくじ
-  const fortunes = ["大吉", "中吉", "小吉", "凶", "大凶"];
-  document.getElementById("omikujiBtn").addEventListener("click", function () {
-    const index = Math.floor(Math.random() * fortunes.length);
-    document.getElementById("result").textContent = fortunes[index];
-  });
-
-  // ToDo
-  document.getElementById("addTask").addEventListener("click", () => {
-    const taskInput = document.getElementById("taskInput");
-    const taskText = taskInput.value.trim();
-    const taskList = document.getElementById("taskList");
-    if (taskText !== "") {
-      const li = document.createElement("li");
-      li.textContent = taskText;
-      li.addEventListener("click", () => taskList.removeChild(li));
-      taskList.appendChild(li);
-      taskInput.value = "";
-    }
-  });
-
-  // スライダー
-  let current = 0;
-  document.getElementById("next").addEventListener("click", () => {
-    const slides = document.querySelectorAll(".slide");
-    slides[current].style.display = "none";
-    current = (current + 1) % slides.length;
-    slides[current].style.display = "block";
-  });
-
-  // Canvas お絵かきボード
-  const canvas = document.getElementById('paintCanvas');
-  const ctx = canvas.getContext('2d');
-  let isDrawing = false;
-  let lastX = 0;
-  let lastY = 0;
-
-  canvas.addEventListener('mousedown', (e) => {
-    isDrawing = true;
-    lastX = e.offsetX;
-    lastY = e.offsetY;
-  });
-
-  canvas.addEventListener('mousemove', (e) => {
-    if (!isDrawing) return;
-    ctx.beginPath();
-    ctx.moveTo(lastX, lastY);
-    ctx.lineTo(e.offsetX, e.offsetY);
-    ctx.strokeStyle = '#000';
-    ctx.lineWidth = 1;
-    ctx.stroke();
-    lastX = e.offsetX;
-    lastY = e.offsetY;
-  });
-
-  canvas.addEventListener('mouseup', () => {
-    isDrawing = false;
-  });
-
-  canvas.addEventListener('mouseout', () => {
-    isDrawing = false;
-  });
+});
 </script>
 
 </body>
