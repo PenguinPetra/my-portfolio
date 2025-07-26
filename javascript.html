@@ -178,6 +178,30 @@ function clearCanvas() {
 
   <!-- JavaScriptの動作コード -->
   <script>
+    function runExample1() {
+      let name = "太郎";
+      const age = 20;
+      document.getElementById("output1").textContent = `名前: ${name}、年齢: ${age}`;
+    }
+
+    function runExample2() {
+      alert("こんにちは！");
+    }
+
+    function runExample3(score) {
+      let message = "";
+      if (score >= 80) {
+        message = "よくできました";
+      } else {
+        message = "がんばりましょう";
+      }
+      document.getElementById("output3").textContent = message;
+    }
+
+    document.getElementById("demoBtn").addEventListener("click", function() {
+      alert("ボタンがクリックされました");
+    });
+
     // おみくじ
     function drawOmikuji() {
       const results = ["大吉", "中吉", "小吉", "凶"];
