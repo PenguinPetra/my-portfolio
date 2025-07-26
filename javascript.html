@@ -54,7 +54,51 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-  <h1>JavaScript体験チュートリアル</h1>
+  <h1>JavaScriptとは？</h1>
+  <p>
+    JavaScriptは、ウェブページに動きを与えるプログラミング言語です。ここでは、基本的な構文を学びながら、実際に動くアプリを体験できます。
+  </p>
+
+  <h1>JavaScriptの基礎</h1>
+
+  <h2>変数と定数</h2>
+  <pre><code>let name = "太郎";
+const age = 20;
+document.getElementById("output1").textContent = `名前: ${name}、年齢: ${age}`;
+  </code></pre>
+  <button onclick="runExample1()">このコードを実行する</button>
+  <div id="output1" class="output"></div>
+
+  <h2>関数</h2>
+  <pre><code>function sayHello() {
+  alert("こんにちは！");
+}
+sayHello();
+  </code></pre>
+  <button onclick="runExample2()">このコードを実行する</button>
+
+  <h2>条件分岐</h2>
+  <pre><code>let score = 85;
+let message = "";
+if (score >= 80) {
+  message = "よくできました";
+} else {
+  message = "がんばりましょう";
+}
+document.getElementById("output3").textContent = message;
+  </code></pre>
+  <button onclick="runExample3(85)">score=85を試す</button>
+  <button onclick="runExample3(60)">score=60を試す</button>
+  <div id="output3" class="output"></div>
+
+  <h2>イベントとDOM</h2>
+  <pre><code>document.getElementById("demoBtn").addEventListener("click", function() {
+  alert("ボタンがクリックされました");
+});
+  </code></pre>
+  <button id="demoBtn">デモボタン</button>
+
+  <hr>
 
   <h2>スライダーで表示される画像</h2>
   <div class="slider">
@@ -70,13 +114,6 @@
   <h2>JavaScriptでおみくじ</h2>
   <button onclick="drawOmikuji()">おみくじを引く</button>
   <div class="output" id="omikujiResult"></div>
-  <pre><code>
-function drawOmikuji() {                             // おみくじを引く関数
-  const results = ["大吉", "中吉", "小吉", "凶"];
-  const index = Math.floor(Math.random() * results.length);  // ランダムに結果を選ぶ
-  document.getElementById("omikujiResult").textContent = `結果: ${results[index]}`; // 結果を表示
-}
-  </code></pre>
 
   <hr>
 
@@ -84,101 +121,83 @@ function drawOmikuji() {                             // おみくじを引く関
   <input type="text" id="todoInput" placeholder="やることを入力">
   <button onclick="addTodo()">追加</button>
   <ul id="todoList"></ul>
-  <pre><code>
-function addTodo() {                                 // ToDoを追加する関数
-  const input = document.getElementById("todoInput");
-  const value = input.value.trim();
-  if (!value) return;
-
-  const li = document.createElement("li");
-  li.className = "todo-item";
-  li.textContent = value;
-
-  const delBtn = document.createElement("button");
-  delBtn.textContent = "削除";                        // 削除ボタンを作成
-  delBtn.onclick = () => li.remove();                // 削除ボタンをクリックでリストから削除
-
-  li.appendChild(delBtn);
-  document.getElementById("todoList").appendChild(li);
-  input.value = "";                                   // 入力欄をクリア
-}
-  </code></pre>
 
   <hr>
 
   <h2>お絵描きボード</h2>
   <canvas id="canvas" width="500" height="300"></canvas><br>
   <button onclick="clearCanvas()">全消し</button>
-  <pre><code>
-const canvas = document.getElementById("canvas");       // canvas要素を取得
-const ctx = canvas.getContext("2d");                    // 描画用の2Dコンテキストを取得
-let drawing = false;                                     // 描画中かどうかのフラグ
-
-canvas.addEventListener("mousedown", e => {             // マウスを押したときに描画開始
-  drawing = true;
-  ctx.beginPath();
-  ctx.moveTo(e.offsetX, e.offsetY);
-});
-
-canvas.addEventListener("mousemove", e => {
-  if (!drawing) return;
-  ctx.lineTo(e.offsetX, e.offsetY);                     // 現在の位置まで線を引く
-  ctx.stroke();                                         // 線を描画する
-});
-
-canvas.addEventListener("mouseup", () => drawing = false);  // マウスを離したら描画終了
-
-function clearCanvas() {                                // 全消し機能
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-}
-  </code></pre>
 
   <script>
-  function drawOmikuji() {
-    const results = ["大吉", "中吉", "小吉", "凶"];
-    const index = Math.floor(Math.random() * results.length);
-    document.getElementById("omikujiResult").textContent = `結果: ${results[index]}`;
-  }
+    function runExample1() {
+      let name = "太郎";
+      const age = 20;
+      document.getElementById("output1").textContent = `名前: ${name}、年齢: ${age}`;
+    }
 
-  function addTodo() {
-    const input = document.getElementById("todoInput");
-    const value = input.value.trim();
-    if (!value) return;
+    function runExample2() {
+      alert("こんにちは！");
+    }
 
-    const li = document.createElement("li");
-    li.className = "todo-item";
-    li.textContent = value;
+    function runExample3(score) {
+      let message = "";
+      if (score >= 80) {
+        message = "よくできました";
+      } else {
+        message = "がんばりましょう";
+      }
+      document.getElementById("output3").textContent = message;
+    }
 
-    const delBtn = document.createElement("button");
-    delBtn.textContent = "削除";
-    delBtn.onclick = () => li.remove();
+    document.getElementById("demoBtn").addEventListener("click", function() {
+      alert("ボタンがクリックされました");
+    });
 
-    li.appendChild(delBtn);
-    document.getElementById("todoList").appendChild(li);
-    input.value = "";
-  }
+    function drawOmikuji() {
+      const results = ["大吉", "中吉", "小吉", "凶"];
+      const index = Math.floor(Math.random() * results.length);
+      document.getElementById("omikujiResult").textContent = `結果: ${results[index]}`;
+    }
 
-  const canvas = document.getElementById("canvas");
-  const ctx = canvas.getContext("2d");
-  let drawing = false;
+    function addTodo() {
+      const input = document.getElementById("todoInput");
+      const value = input.value.trim();
+      if (!value) return;
 
-  canvas.addEventListener("mousedown", e => {
-    drawing = true;
-    ctx.beginPath();
-    ctx.moveTo(e.offsetX, e.offsetY);
-  });
+      const li = document.createElement("li");
+      li.className = "todo-item";
+      li.textContent = value;
 
-  canvas.addEventListener("mousemove", e => {
-    if (!drawing) return;
-    ctx.lineTo(e.offsetX, e.offsetY);
-    ctx.stroke();
-  });
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "削除";
+      delBtn.onclick = () => li.remove();
 
-  canvas.addEventListener("mouseup", () => drawing = false);
+      li.appendChild(delBtn);
+      document.getElementById("todoList").appendChild(li);
+      input.value = "";
+    }
 
-  function clearCanvas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  }
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    let drawing = false;
+
+    canvas.addEventListener("mousedown", e => {
+      drawing = true;
+      ctx.beginPath();
+      ctx.moveTo(e.offsetX, e.offsetY);
+    });
+
+    canvas.addEventListener("mousemove", e => {
+      if (!drawing) return;
+      ctx.lineTo(e.offsetX, e.offsetY);
+      ctx.stroke();
+    });
+
+    canvas.addEventListener("mouseup", () => drawing = false);
+
+    function clearCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
   </script>
 </body>
 </html>
