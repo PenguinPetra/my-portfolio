@@ -10,7 +10,6 @@
   <main>
     <h1>JavaScriptの基礎と体験</h1>
 
-    <!-- JavaScriptとは -->
     <section>
       <h2>JavaScriptとは？</h2>
       <p>
@@ -20,7 +19,6 @@
       </p>
     </section>
 
-    <!-- 基本文法 -->
     <section>
       <h2>変数と定数</h2>
       <pre><code>let name = "太郎";
@@ -54,7 +52,6 @@ document.getElementById("output3").textContent = message;</code></pre>
       <div id="output3" class="output"></div>
     </section>
 
-    <!-- おみくじ -->
     <section>
       <h2>おみくじ</h2>
       <button onclick="drawOmikuji()">おみくじを引く</button>
@@ -66,7 +63,6 @@ document.getElementById("output3").textContent = message;</code></pre>
 }</code></pre>
     </section>
 
-    <!-- ToDoリスト -->
     <section>
       <h2>ToDoリスト</h2>
       <input type="text" id="todoInput" placeholder="やることを入力">
@@ -87,7 +83,6 @@ document.getElementById("output3").textContent = message;</code></pre>
 }</code></pre>
     </section>
 
-    <!-- スライダー -->
     <section>
       <h2>スライダー機能（使用画像の紹介）</h2>
       <div class="slider-container">
@@ -101,7 +96,6 @@ document.getElementById("output3").textContent = message;</code></pre>
       </div>
     </section>
 
-    <!-- お絵描き -->
     <section>
       <h2>お絵描きボード</h2>
       <canvas id="canvas" width="500" height="300"></canvas><br>
@@ -129,10 +123,8 @@ function clearCanvas() {
 }</code></pre>
     </section>
 
-    <!-- トップへのリンク -->
     <p><a href="index.html" class="back-button">トップページに戻る</a></p>
 
-    <!-- 制作時間 -->
     <p>本コンテンツの作成時間：約8時間（設計・実装含む）</p>
   </main>
 
@@ -182,8 +174,11 @@ function clearCanvas() {
     function updateSlider() {
       const slider = document.getElementById("slider");
       const slides = slider.querySelectorAll("img");
-      const slideWidth = slider.clientWidth / slides.length;
-      slider.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+      // 各スライドの幅をコンテナの現在の幅に基づいて計算
+      const slideWidth = slider.clientWidth / slides.length; // ここが間違いのもと、各画像はコンテナの幅と等しくすべき
+      // 正しい計算は、slider-containerの幅が基準
+      const containerWidth = document.querySelector(".slider-container").clientWidth;
+      slider.style.transform = `translateX(-${currentSlide * containerWidth}px)`;
     }
     function autoSlide() {
       const slider = document.getElementById("slider");
@@ -194,6 +189,7 @@ function clearCanvas() {
     setInterval(autoSlide, 4000);
     window.addEventListener("resize", updateSlider);
     window.addEventListener("load", updateSlider);
+
 
     // お絵描き
     const canvas = document.getElementById("canvas");
