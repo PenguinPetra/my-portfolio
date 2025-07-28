@@ -14,11 +14,8 @@
 
   <h2>変数と定数について</h2>
   <p>変数（<code>let</code>）は値を後から変えることができ、定数（<code>const</code>）は一度決めたら変更できません。</p>
-  <pre><code>// 名前を格納する変数を定義
-let name = "太郎";
-// 年齢を格納する定数を定義
+  <pre><code>let name = "太郎";
 const age = 20;
-// 出力エリアに名前と年齢を表示
 document.getElementById("output1").textContent = `名前: ${name}、年齢: ${age}`;
   </code></pre>
   <button onclick="runExample1()">このコードを実行する</button>
@@ -26,27 +23,22 @@ document.getElementById("output1").textContent = `名前: ${name}、年齢: ${ag
 
   <h2>関数とは？</h2>
   <p>関数は一連の処理をまとめたものです。必要なときに呼び出して使います。</p>
-  <pre><code>// あいさつする関数を定義
-function sayHello() {
-  alert("こんにちは！"); // アラート表示
+  <pre><code>function sayHello() {
+  alert("こんにちは！");
 }
-// 関数を呼び出し
 sayHello();
   </code></pre>
   <button onclick="runExample2()">このコードを実行する</button>
 
   <h2>条件分岐とは？</h2>
   <p>条件によって処理を変えることができます。if文を使います。</p>
-  <pre><code>// スコアを定義
-let score = 85;
+  <pre><code>let score = 85;
 let message = "";
-// 条件分岐：スコアが80以上かどうかで結果を変える
 if (score >= 80) {
   message = "よくできました";
 } else {
   message = "がんばりましょう";
 }
-// 結果を出力
 document.getElementById("output3").textContent = message;
   </code></pre>
   <button onclick="runExample3(85)">score=85を試す</button>
@@ -55,8 +47,7 @@ document.getElementById("output3").textContent = message;
 
   <h2>イベントとDOM</h2>
   <p>イベントとは、ユーザーの操作（例：クリック）です。DOMはHTMLの構造を表し、JavaScriptで操作可能です。</p>
-  <pre><code>// demoBtnがクリックされたらアラート表示
-document.getElementById("demoBtn").addEventListener("click", function() {
+  <pre><code>document.getElementById("demoBtn").addEventListener("click", function() {
   alert("ボタンがクリックされました");
 });
   </code></pre>
@@ -66,12 +57,11 @@ document.getElementById("demoBtn").addEventListener("click", function() {
   <p>ランダムに「大吉」などの結果を表示する簡単な機能です。</p>
   <button onclick="drawOmikuji()">おみくじを引く</button>
   <div class="output" id="omikujiResult"></div>
-  <pre><code>// 結果リストを用意
-const results = ["大吉", "中吉", "小吉", "凶"];
-// ランダムなインデックスを取得
-const index = Math.floor(Math.random() * results.length);
-// 結果を表示
-document.getElementById("omikujiResult").textContent = `結果: ${results[index]}`;
+  <pre><code>function drawOmikuji() {
+  const results = ["大吉", "中吉", "小吉", "凶"];
+  const index = Math.floor(Math.random() * results.length);
+  document.getElementById("omikujiResult").textContent = `結果: ${results[index]}`;
+}
   </code></pre>
 
   <h2>スライダー機能（画像の切り替え）</h2>
@@ -85,10 +75,8 @@ document.getElementById("omikujiResult").textContent = `結果: ${results[index]
       <img src="icons8-javascript-128.png" alt="JavaScript" />
     </div>
   </div>
-  <pre><code>// 現在のスライド位置
-let currentSlide = 0;
+  <pre><code>let currentSlide = 0;
 
-// スライダーを更新する関数
 function updateSlider() {
   const slider = document.getElementById("slider");
   const slides = slider.querySelectorAll("img");
@@ -96,7 +84,6 @@ function updateSlider() {
   slider.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
 }
 
-// 次のスライドに進む関数
 function nextSlide() {
   const slider = document.getElementById("slider");
   const slides = slider.querySelectorAll("img");
@@ -104,9 +91,7 @@ function nextSlide() {
   updateSlider();
 }
 
-// 一定時間ごとにスライドを切り替え
 setInterval(nextSlide, 4000);
-// 初期化とリサイズ時の調整
 window.addEventListener("resize", updateSlider);
 window.addEventListener("load", updateSlider);
   </code></pre>
@@ -118,11 +103,10 @@ window.addEventListener("load", updateSlider);
     <button onclick="addTodo()">追加</button>
     <ul id="todoList"></ul>
   </div>
-  <pre><code>// ToDoを追加する関数
-function addTodo() {
+  <pre><code>function addTodo() {
   const input = document.getElementById("todoInput");
   const value = input.value.trim();
-  if (!value) return; // 入力が空なら終了
+  if (!value) return;
 
   const li = document.createElement("li");
   li.className = "todo-item";
@@ -130,11 +114,11 @@ function addTodo() {
 
   const delBtn = document.createElement("button");
   delBtn.textContent = "削除";
-  delBtn.onclick = () => li.remove(); // ボタンを押したら削除
+  delBtn.onclick = () => li.remove();
 
   li.appendChild(delBtn);
   document.getElementById("todoList").appendChild(li);
-  input.value = ""; // 入力欄をリセット
+  input.value = "";
 }
   </code></pre>
 
@@ -144,33 +128,102 @@ function addTodo() {
     <canvas id="canvas" width="500" height="300"></canvas><br />
     <button onclick="clearCanvas()">全消し</button>
   </div>
-  <pre><code>// キャンバスと描画コンテキストを取得
-const canvas = document.getElementById("canvas");
+  <pre><code>const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-let drawing = false; // 描画中かどうかのフラグ
+let drawing = false;
 
-// マウスを押したとき、描画を開始
-canvas.addEventListener("mousedown", e => {
+canvas.addEventListener("mousedown", (e) => {
   drawing = true;
   ctx.beginPath();
   ctx.moveTo(e.offsetX, e.offsetY);
 });
 
-// マウスを動かしたとき、線を描く
-canvas.addEventListener("mousemove", e => {
+canvas.addEventListener("mousemove", (e) => {
   if (!drawing) return;
   ctx.lineTo(e.offsetX, e.offsetY);
   ctx.stroke();
 });
 
-// マウスを離したとき、描画終了
 canvas.addEventListener("mouseup", () => (drawing = false));
 
-// キャンバスを全消去する関数
 function clearCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
   </code></pre>
+
+  <script>
+    function runExample1() {
+      let name = "太郎";
+      const age = 20;
+      document.getElementById("output1").textContent = `名前: ${name}、年齢: ${age}`;
+    }
+
+    function runExample2() {
+      alert("こんにちは！");
+    }
+
+    function runExample3(score) {
+      let message = "";
+      if (score >= 80) {
+        message = "よくできました";
+      } else {
+        message = "がんばりましょう";
+      }
+      document.getElementById("output3").textContent = message;
+    }
+
+    document.getElementById("demoBtn").addEventListener("click", function () {
+      alert("ボタンがクリックされました");
+    });
+
+    function drawOmikuji() {
+      const results = ["大吉", "中吉", "小吉", "凶"];
+      const index = Math.floor(Math.random() * results.length);
+      document.getElementById("omikujiResult").textContent = `結果: ${results[index]}`;
+    }
+
+    let currentSlide = 0;
+
+    function updateSlider() {
+      const slider = document.getElementById("slider");
+      const slides = slider.querySelectorAll("img");
+      const slideWidth = slider.clientWidth / slides.length;
+      slider.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+    }
+
+    function nextSlide() {
+      const slider = document.getElementById("slider");
+      const slides = slider.querySelectorAll("img");
+      currentSlide = (currentSlide + 1) % slides.length;
+      updateSlider();
+    }
+
+    setInterval(nextSlide, 4000);
+    window.addEventListener("resize", updateSlider);
+    window.addEventListener("load", updateSlider);
+
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    let drawing = false;
+
+    canvas.addEventListener("mousedown", (e) => {
+      drawing = true;
+      ctx.beginPath();
+      ctx.moveTo(e.offsetX, e.offsetY);
+    });
+
+    canvas.addEventListener("mousemove", (e) => {
+      if (!drawing) return;
+      ctx.lineTo(e.offsetX, e.offsetY);
+      ctx.stroke();
+    });
+
+    canvas.addEventListener("mouseup", () => (drawing = false));
+
+    function clearCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  </script>
 
   <p>
     <a href="index.html" class="back-button">トップページに戻る</a>
