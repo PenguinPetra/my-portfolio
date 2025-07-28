@@ -57,39 +57,44 @@ p {
   margin-bottom: 30px;
 }
 
-/* お絵描き背景色 */
+/* お絵描き背景色・枠線・余白調整 */
 .canvas-area {
-  background-color: #f3e5f5; /* 薄い紫 */
-  padding: 15px;
-  border-radius: 8px;
+  background-color: #f9f0ff; /* さらに明るい薄紫 */
+  padding: 20px;
+  border-radius: 10px;
   max-width: 520px;
   margin-bottom: 30px;
-  box-shadow: 0 0 5px #aaa;
+  box-shadow: 0 0 8px #b399cc;
+  border: 2px solid #b399cc; /* 薄い紫の枠線を追加 */
 }
 
-/* コード表示の見やすさ向上 */
+/* キャンバスに枠線追加 */
+canvas {
+  border: 2px solid #9c7ade;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto 10px auto;
+  background-color: #fff; /* キャンバス自体の背景も白く */
+}
+
+/* コード表示のフォント・行間・余白調整 */
 pre {
   background-color: #272822;
   color: #f8f8f2;
-  padding: 15px;
-  border-radius: 8px;
+  padding: 20px 25px;
+  border-radius: 10px;
   overflow-x: auto;
   max-width: 600px;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
+
+  font-size: 16px;       /* フォントサイズを少し大きく */
+  line-height: 1.6;      /* 行間を広く */
+  letter-spacing: 0.03em; /* 少し字間を広げて読みやすく */
 }
 
-/* レスポンシブ改善（全体） */
+/* レスポンシブ時もフォントサイズを保つ */
 @media (max-width: 650px) {
-  .slider-container,
-  .todo-area,
-  .canvas-area,
   pre {
-    max-width: 100%;
-    padding: 10px;
-  }
-
-  canvas {
-    width: 100% !important;
-    height: auto !important;
+    font-size: 15px;
   }
 }
