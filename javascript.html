@@ -5,23 +5,21 @@
   <title>JavaScriptの基礎と体験</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="javascript.css">
-
 </head>
 <body>
+
   <h1>JavaScriptとは？ / JavaScriptの基礎</h1>
   <p>
     ウェブサイトに表示されるアニメーションや、入力フォームを操作したときの動き、これらはJavaScriptによって実現されています。JavaScriptは、静的なウェブページに命を吹き込み、ユーザーが触って楽しめる『動的な』体験を作り出すためのプログラミング言語です。
-    ここでは、その第一歩として、情報を入れておく箱である変数（let）や、後から変更できない値である定数（const）、そして一連の処理をまとめて名前をつけた**関数（function）**など、プログラミングの基本的な道具の使い方を学びます。
+    ここでは、その第一歩として、情報を入れておく箱である変数（let）や、後から変更できない値である定数（const）、そして一連の処理をまとめて名前をつけた<strong>関数（function）</strong>など、プログラミングの基本的な道具の使い方を学びます。
   </p>
 
-
-<h1>JavaScriptの基礎</h1>
+  <h1>JavaScriptの基礎</h1>
 
   <h2>変数と定数</h2>
   <pre><code>let name = "太郎";
 const age = 20;
-document.getElementById("output1").textContent = `名前: ${name}、年齢: ${age}`;
-  </code></pre>
+document.getElementById("output1").textContent = `名前: ${name}、年齢: ${age}`;</code></pre>
   <button onclick="runExample1()">このコードを実行する</button>
   <div id="output1" class="output"></div>
 
@@ -29,12 +27,11 @@ document.getElementById("output1").textContent = `名前: ${name}、年齢: ${ag
   <pre><code>function sayHello() {
   alert("こんにちは！");
 }
-sayHello();
-  </code></pre>
+sayHello();</code></pre>
   <button onclick="runExample2()">このコードを実行する</button>
 
   <h2>条件分岐</h2>
-  <p>『もし〇〇だったら、Aをする。そうでなければ、Bをする』というように、私たちの日常は選択の連続です。プログラミングでもこの『条件による判断』は欠かせません。if文を使った条件分岐を学べば、例えば『スコアが80点以上なら"よくできました"と表示する』といった、状況に応じた柔軟なプログラムを作れるようになります。</p>
+  <p>if文を使って条件に応じた動作を分岐できます。</p>
   <pre><code>let score = 85;
 let message = "";
 if (score >= 80) {
@@ -42,68 +39,48 @@ if (score >= 80) {
 } else {
   message = "がんばりましょう";
 }
-document.getElementById("output3").textContent = message;
-  </code></pre>
+document.getElementById("output3").textContent = message;</code></pre>
   <button onclick="runExample3(85)">score=85を試す</button>
   <button onclick="runExample3(60)">score=60を試す</button>
   <div id="output3" class="output"></div>
 
   <h2>イベントとDOM</h2>
-  <p>ユーザーがボタンをクリックしたり、マウスを動かしたりすることをイベントと呼びます。そして、JavaScriptが操作するHTML要素（ウェブページの部品）の構造を**DOM（Document Object Model）**と呼びます。この二つを組み合わせることで、『ボタンがクリックされたら（イベント）、この文字を書き換える（DOM操作）』といった、ユーザーのアクションに反応するインタラクティブなページが作れるようになります。ウェブアプリ開発の核となる重要な概念です。</p>
   <pre><code>document.getElementById("demoBtn").addEventListener("click", function() {
   alert("ボタンがクリックされました");
-});
-  </code></pre>
+});</code></pre>
   <button id="demoBtn">デモボタン</button>
 
-  <!-- === おみくじ === -->
   <h2>おみくじ</h2>
-  <p>
-    今日の運勢を占ってみましょう！このおみくじは、JavaScriptの基本的な機能を組み合わせた楽しい実践例です。複数の結果を**配列（Array）**というリストに保存し、**乱数（Math.random）**を使ってその中から一つをランダムに選び出し、結果を画面に表示しています。数行のコードで、こんなに面白いものが作れることを体験してみてください。
-  </p>
   <button onclick="drawOmikuji()">おみくじを引く</button>
   <div class="output" id="omikujiResult"></div>
-
-  <pre><code>
-// おみくじ機能
+  <pre><code>// おみくじ機能
 function drawOmikuji() {
-  const results = ["大吉", "中吉", "小吉", "凶"];    // おみくじの種類を配列で定義
-  const index = Math.floor(Math.random() * results.length);  // ランダムなインデックスを生成
-  document.getElementById("omikujiResult").textContent = `結果: ${results[index]}`;  // 結果を画面に表示
-}
-  </code></pre>
+  const results = ["大吉", "中吉", "小吉", "凶"];
+  const index = Math.floor(Math.random() * results.length);
+  document.getElementById("omikujiResult").textContent = `結果: ${results[index]}`;
+}</code></pre>
 
   <hr>
 
-  <!-- === ToDoリスト === -->
   <h2>ToDoリスト</h2>
-  <p>
-    ToDoリストは、多くのウェブデベロッパーが最初に挑戦する定番のアプリケーションです。ユーザーが入力したテキストの受け取り、ボタンがクリックされたときの処理、新しいリスト項目の動的な追加、そして削除機能など、これまでに学んだDOM操作やイベント処理の知識を総動員します。これを完成させれば、ウェブアプリケーション制作の基礎が身についたと自信を持って言えるでしょう。  
-  </p>
   <input type="text" id="todoInput" placeholder="やることを入力">
   <button onclick="addTodo()">追加</button>
   <ul id="todoList"></ul>
-
-  <pre><code>
-// ToDoリスト機能
+  <pre><code>// ToDoリスト機能
 function addTodo() {
-  const input = document.getElementById("todoInput");     // 入力ボックスを取得
-  const value = input.value.trim();                       // 入力値を取得し前後の空白を除去
-  if (!value) return;                                     // 空なら追加しない
-
-  const li = document.createElement("li");                // li要素を作成
-  li.className = "todo-item";                             // クラスを設定
-  li.textContent = value;                                 // 入力値をテキストとして追加
-
-  const delBtn = document.createElement("button");        // 削除ボタンを作成
-  delBtn.textContent = "削除";                             // ボタンに文字を追加
-  delBtn.onclick = () => li.remove();                     // クリック時にliを削除
-
-  li.appendChild(delBtn);                                 // liにボタンを追加
-  document.getElementById("todoList").appendChild(li);    // リストにliを追加
-  input.value = "";                                       // 入力ボックスをクリア
-}
-  </code></pre>
+  const input = document.getElementById("todoInput");
+  const value = input.value.trim();
+  if (!value) return;
+  const li = document.createElement("li");
+  li.className = "todo-item";
+  li.textContent = value;
+  const delBtn = document.createElement("button");
+  delBtn.textContent = "削除";
+  delBtn.onclick = () => li.remove();
+  li.appendChild(delBtn);
+  document.getElementById("todoList").appendChild(li);
+  input.value = "";
+}</code></pre>
 
   <hr>
 
@@ -120,42 +97,37 @@ function addTodo() {
     <button class="slider-btn right" onclick="nextSlide()">&#10095;</button>
   </div>
 
+  <h2>お絵描きボード</h2>
+  <canvas id="canvas" width="500" height="300"></canvas><br>
+  <button onclick="clearCanvas()">全消し</button>
+  <pre><code>const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+let drawing = false;
+
+canvas.addEventListener("mousedown", e => {
+  drawing = true;
+  ctx.beginPath();
+  ctx.moveTo(e.offsetX, e.offsetY);
+});
+
+canvas.addEventListener("mousemove", e => {
+  if (!drawing) return;
+  ctx.lineTo(e.offsetX, e.offsetY);
+  ctx.stroke();
+});
+
+canvas.addEventListener("mouseup", () => drawing = false);
+
+function clearCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}</code></pre>
+
   <p>
     <a href="index.html" class="back-button">トップページに戻る</a>
   </p>
 
-  <h2>お絵描きボード</h2>
-  <p>
-    HTMLのcanvas要素を使えば、ウェブページを真っ白なキャンバスに見立てて、自由に図形や絵を描画できます。このお絵描きボードでは、マウスが押されたり（mousedown）、動いたり（mousemove）、離されたり（mouseup）するイベントを検知して、その座標に線を引いています。クリエイティブな表現や、ゲーム開発にも繋がる面白い技術です。
-  </p>
-  <canvas id="canvas" width="500" height="300"></canvas><br>
-  <button onclick="clearCanvas()">全消し</button>
+  <p>本コンテンツの作成時間（HTML/CSS/JavaScriptの設計・実装を含む）：約8時間</p>
 
-  <pre><code>
-const canvas = document.getElementById("canvas");         // canvas要素を取得
-const ctx = canvas.getContext("2d");                      // 2D描画コンテキストを取得
-let drawing = false;                                      // 描画中かどうかのフラグ
-
-canvas.addEventListener("mousedown", e => {
-  drawing = true;                                         // マウス押下で描画開始
-  ctx.beginPath();                                        // 新しいパスを開始
-  ctx.moveTo(e.offsetX, e.offsetY);                       // 開始位置を設定
-});
-
-canvas.addEventListener("mousemove", e => {
-  if (!drawing) return;                                   // 描画中でなければ終了
-  ctx.lineTo(e.offsetX, e.offsetY);                       // 線を現在位置まで引く
-  ctx.stroke();                                           // 描画する
-});
-
-canvas.addEventListener("mouseup", () => drawing = false);  // マウス離しで描画終了
-
-function clearCanvas() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);       // 全体をクリア
-}
-  </code></pre>
-
-  <!-- JavaScriptの動作コード -->
   <script>
     function runExample1() {
       let name = "太郎";
@@ -181,27 +153,22 @@ function clearCanvas() {
       alert("ボタンがクリックされました");
     });
 
-    // おみくじ
     function drawOmikuji() {
       const results = ["大吉", "中吉", "小吉", "凶"];
       const index = Math.floor(Math.random() * results.length);
       document.getElementById("omikujiResult").textContent = `結果: ${results[index]}`;
     }
 
-    // ToDoリスト
     function addTodo() {
       const input = document.getElementById("todoInput");
       const value = input.value.trim();
       if (!value) return;
-
       const li = document.createElement("li");
       li.className = "todo-item";
       li.textContent = value;
-
       const delBtn = document.createElement("button");
       delBtn.textContent = "削除";
       delBtn.onclick = () => li.remove();
-
       li.appendChild(delBtn);
       document.getElementById("todoList").appendChild(li);
       input.value = "";
@@ -230,14 +197,10 @@ function clearCanvas() {
       updateSlider();
     }
 
-    // 自動スライド（4秒）
     setInterval(nextSlide, 4000);
-
-    // リサイズ時にスライド位置調整
     window.addEventListener("resize", updateSlider);
     window.addEventListener("load", updateSlider);
 
-    // お絵描き
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
     let drawing = false;
@@ -261,12 +224,5 @@ function clearCanvas() {
     }
   </script>
 
-
-  <p>
-    <a href="index.html" style="display:inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">
-      トップページに戻る
-    </a>
-  </p>
-  <p>本コンテンツの作成時間（HTML/CSS/JavaScriptの設計・実装を含む）：約8時間</p>
 </body>
 </html>
