@@ -86,3 +86,43 @@ p {
     padding: 8px;
   }
 }
+
+/* --- コードブロック --- */
+pre {
+  background-color: #2d2d2d;   /* かなり濃いグレー */
+  color: #f8f8f2;              /* 明るい文字色（白に近い） */
+  padding: 15px 20px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+/* --- 実行結果表示 --- */
+.output {
+  background-color: #e6f4ea;   /* 淡い緑色 */
+  border: 2px solid #a3d3a1;  /* 緑系の枠線 */
+  padding: 12px 15px;
+  margin: 8px 0 25px 0;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #2f6627;
+  box-shadow: inset 0 0 8px #cde7cd;
+  min-height: 30px;
+}
+
+/* --- お絵描きボード --- */
+#canvas {
+  border: 3px solid #444;      /* 太めの濃いグレー枠 */
+  background-color: white;
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.25);
+  display: block;
+  margin: 15px 0 25px 0;
+  border-radius: 8px;
+  max-width: 100%;
+  height: auto;
+}
+
