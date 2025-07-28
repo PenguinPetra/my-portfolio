@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>JavaScriptの基礎と体験</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="javascript.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="javascript.css" />
 </head>
 <body>
   <h1>JavaScriptとは？ / JavaScriptの基礎</h1>
@@ -56,7 +56,6 @@ document.getElementById("output3").textContent = message;
   <h2>おみくじ</h2>
   <button onclick="drawOmikuji()">おみくじを引く</button>
   <div class="output" id="omikujiResult"></div>
-
   <pre><code>
 // おみくじ機能
 function drawOmikuji() {
@@ -66,29 +65,101 @@ function drawOmikuji() {
 }
   </code></pre>
 
-  <h2>ToDoリスト</h2>
-  <input type="text" id="todoInput" placeholder="やることを入力">
-  <button onclick="addTodo()">追加</button>
-  <ul id="todoList"></ul>
-
+  <!-- ===== 修正済み：スライダー自動のみ ===== -->
   <h2>スライダー機能（使用画像の紹介）</h2>
   <div class="slider-container">
     <div class="slider" id="slider">
-      <img src="icons_c++-96.png" alt="C++">
-      <img src="icons_python-96.png" alt="Python">
-      <img src="icons8-css3-48.png" alt="CSS3">
-      <img src="icons8-html-5-48.png" alt="HTML5">
-      <img src="icons8-javascript-128.png" alt="JavaScript">
+      <img src="icons_c++-96.png" alt="C++" />
+      <img src="icons_python-96.png" alt="Python" />
+      <img src="icons8-css3-48.png" alt="CSS3" />
+      <img src="icons8-html-5-48.png" alt="HTML5" />
+      <img src="icons8-javascript-128.png" alt="JavaScript" />
     </div>
-    <button class="slider-btn left" onclick="prevSlide()">&#10094;</button>
-    <button class="slider-btn right" onclick="nextSlide()">&#10095;</button>
   </div>
 
+  <pre><code>
+let currentSlide = 0;
+
+function updateSlider() {
+  const slider = document.getElementById("slider");
+  const slides = slider.querySelectorAll("img");
+  const slideWidth = slider.clientWidth / slides.length;
+  slider.style.transform = \`translateX(-\${currentSlide * slideWidth}px)\`;
+}
+
+function nextSlide() {
+  const slider = document.getElementById("slider");
+  const slides = slider.querySelectorAll("img");
+  currentSlide = (currentSlide + 1) % slides.length;
+  updateSlider();
+}
+
+setInterval(nextSlide, 4000);
+window.addEventListener("resize", updateSlider);
+window.addEventListener("load", updateSlider);
+  </code></pre>
+
+  <!-- ===== ToDoリスト ===== -->
+  <h2>ToDoリスト</h2>
+  <div class="todo-area">
+    <input type="text" id="todoInput" placeholder="やることを入力" />
+    <button onclick="addTodo()">追加</button>
+    <ul id="todoList"></ul>
+  </div>
+
+  <pre><code>
+function addTodo() {
+  const input = document.getElementById("todoInput");
+  const value = input.value.trim();
+  if (!value) return;
+
+  const li = document.createElement("li");
+  li.className = "todo-item";
+  li.textContent = value;
+
+  const delBtn = document.createElement("button");
+  delBtn.textContent = "削除";
+  delBtn.onclick = () => li.remove();
+
+  li.appendChild(delBtn);
+  document.getElementById("todoList").appendChild(li);
+  input.value = "";
+}
+  </code></pre>
+
+  <!-- ===== お絵描きボード ===== -->
   <h2>お絵描きボード</h2>
-  <canvas id="canvas" width="500" height="300"></canvas><br>
-  <button onclick="clearCanvas()">全消し</button>
+  <div class="canvas-area">
+    <canvas id="canvas" width="500" height="300"></canvas><br />
+    <button onclick="clearCanvas()">全消し</button>
+  </div>
+
+  <pre><code>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+let drawing = false;
+
+canvas.addEventListener("mousedown", e => {
+  drawing = true;
+  ctx.beginPath();
+  ctx.moveTo(e.offsetX, e.offsetY);
+});
+
+canvas.addEventListener("mousemove", e => {
+  if (!drawing) return;
+  ctx.lineTo(e.offsetX, e.offsetY);
+  ctx.stroke();
+});
+
+canvas.addEventListener("mouseup", () => (drawing = false));
+
+function clearCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+  </code></pre>
 
   <script>
+    // 既存の関数もそのまま残す
     function runExample1() {
       let name = "太郎";
       const age = 20;
@@ -109,7 +180,7 @@ function drawOmikuji() {
       document.getElementById("output3").textContent = message;
     }
 
-    document.getElementById("demoBtn").addEventListener("click", function() {
+    document.getElementById("demoBtn").addEventListener("click", function () {
       alert("ボタンがクリックされました");
     });
 
@@ -119,6 +190,7 @@ function drawOmikuji() {
       document.getElementById("omikujiResult").textContent = `結果: ${results[index]}`;
     }
 
+    // ToDoリスト関数
     function addTodo() {
       const input = document.getElementById("todoInput");
       const value = input.value.trim();
@@ -137,6 +209,7 @@ function drawOmikuji() {
       input.value = "";
     }
 
+    // スライダー自動処理
     let currentSlide = 0;
 
     function updateSlider() {
@@ -153,34 +226,28 @@ function drawOmikuji() {
       updateSlider();
     }
 
-    function prevSlide() {
-      const slider = document.getElementById("slider");
-      const slides = slider.querySelectorAll("img");
-      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-      updateSlider();
-    }
-
     setInterval(nextSlide, 4000);
     window.addEventListener("resize", updateSlider);
     window.addEventListener("load", updateSlider);
 
+    // お絵描き関数
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
     let drawing = false;
 
-    canvas.addEventListener("mousedown", e => {
+    canvas.addEventListener("mousedown", (e) => {
       drawing = true;
       ctx.beginPath();
       ctx.moveTo(e.offsetX, e.offsetY);
     });
 
-    canvas.addEventListener("mousemove", e => {
+    canvas.addEventListener("mousemove", (e) => {
       if (!drawing) return;
       ctx.lineTo(e.offsetX, e.offsetY);
       ctx.stroke();
     });
 
-    canvas.addEventListener("mouseup", () => drawing = false);
+    canvas.addEventListener("mouseup", () => (drawing = false));
 
     function clearCanvas() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
