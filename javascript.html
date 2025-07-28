@@ -3,49 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>JavaScriptの基礎と体験</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: #f9f9f9;
-    }
-    h1, h2 {
-      color: #333;
-    }
-    pre {
-      background: #eee;
-      padding: 10px;
-      overflow-x: auto;
-    }
-    .output {
-      background: #dff0d8;
-      padding: 10px;
-      margin: 5px 0 15px 0;
-      border: 1px solid #c3e6cb;
-    }
-    .todo-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 5px 0;
-      padding: 5px;
-      background-color: #fff;
-      border: 1px solid #ccc;
-    }
-    .todo-item button {
-      margin-left: 10px;
-      background-color: red;
-      color: white;
-      border: none;
-      padding: 3px 6px;
-      cursor: pointer;
-    }
-    #canvas {
-      border: 1px solid #ccc;
-      background: white;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="javascript.css">
+
 </head>
 <body>
   <h1>JavaScriptとは？ / JavaScriptの基礎</h1>
@@ -147,7 +107,23 @@ function addTodo() {
 
   <hr>
 
-  <!-- === お絵かきボード === -->
+  <h2>スライダー機能（使用画像の紹介）</h2>
+  <div class="slider-container">
+    <div class="slider" id="slider">
+      <img src="icons_c++-96.png" alt="C++">
+      <img src="icons_python-96.png" alt="Python">
+      <img src="icons8-css3-48.png" alt="CSS3">
+      <img src="icons8-html-5-48.png" alt="HTML5">
+      <img src="icons8-javascript-128.png" alt="JavaScript">
+    </div>
+    <button class="slider-btn left" onclick="prevSlide()">&#10094;</button>
+    <button class="slider-btn right" onclick="nextSlide()">&#10095;</button>
+  </div>
+
+  <p>
+    <a href="index.html" class="back-button">トップページに戻る</a>
+  </p>
+
   <h2>お絵描きボード</h2>
   <p>
     HTMLのcanvas要素を使えば、ウェブページを真っ白なキャンバスに見立てて、自由に図形や絵を描画できます。このお絵描きボードでは、マウスが押されたり（mousedown）、動いたり（mousemove）、離されたり（mouseup）するイベントを検知して、その座標に線を引いています。クリエイティブな表現や、ゲーム開発にも繋がる面白い技術です。
@@ -230,6 +206,36 @@ function clearCanvas() {
       document.getElementById("todoList").appendChild(li);
       input.value = "";
     }
+
+    let currentSlide = 0;
+
+    function updateSlider() {
+      const slider = document.getElementById("slider");
+      const slides = slider.querySelectorAll("img");
+      const slideWidth = slider.clientWidth / slides.length;
+      slider.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+    }
+
+    function nextSlide() {
+      const slider = document.getElementById("slider");
+      const slides = slider.querySelectorAll("img");
+      currentSlide = (currentSlide + 1) % slides.length;
+      updateSlider();
+    }
+
+    function prevSlide() {
+      const slider = document.getElementById("slider");
+      const slides = slider.querySelectorAll("img");
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      updateSlider();
+    }
+
+    // 自動スライド（4秒）
+    setInterval(nextSlide, 4000);
+
+    // リサイズ時にスライド位置調整
+    window.addEventListener("resize", updateSlider);
+    window.addEventListener("load", updateSlider);
 
     // お絵描き
     const canvas = document.getElementById("canvas");
