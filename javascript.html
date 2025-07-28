@@ -23,32 +23,38 @@
     <!-- 基本文法 -->
     <section>
       <h2>変数と定数</h2>
-      <pre><code>let name = "太郎";
+      <pre><code>
+let name = &quot;太郎&quot;;
 const age = 20;
-document.getElementById("output1").textContent = `名前: ${name}、年齢: ${age}`;</code></pre>
+document.getElementById(&quot;output1&quot;).textContent = `名前: ${name}、年齢: ${age}`;
+      </code></pre>
       <button onclick="runExample1()">このコードを実行する</button>
       <div id="output1" class="output"></div>
     </section>
 
     <section>
       <h2>関数</h2>
-      <pre><code>function sayHello() {
-  alert("こんにちは！");
+      <pre><code>
+function sayHello() {
+  alert(&quot;こんにちは！&quot;);
 }
-sayHello();</code></pre>
+sayHello();
+      </code></pre>
       <button onclick="runExample2()">このコードを実行する</button>
     </section>
 
     <section>
       <h2>条件分岐</h2>
-      <pre><code>let score = 85;
-let message = "";
-if (score >= 80) {
-  message = "よくできました";
+      <pre><code>
+let score = 85;
+let message = &quot;&quot;;
+if (score &gt;= 80) {
+  message = &quot;よくできました&quot;;
 } else {
-  message = "がんばりましょう";
+  message = &quot;がんばりましょう&quot;;
 }
-document.getElementById("output3").textContent = message;</code></pre>
+document.getElementById(&quot;output3&quot;).textContent = message;
+      </code></pre>
       <button onclick="runExample3(85)">score=85を試す</button>
       <button onclick="runExample3(60)">score=60を試す</button>
       <div id="output3" class="output"></div>
@@ -59,11 +65,13 @@ document.getElementById("output3").textContent = message;</code></pre>
       <h2>おみくじ</h2>
       <button onclick="drawOmikuji()">おみくじを引く</button>
       <div class="output" id="omikujiResult"></div>
-      <pre><code>function drawOmikuji() {
-  const results = ["大吉", "中吉", "小吉", "凶"];
+      <pre><code>
+function drawOmikuji() {
+  const results = [&quot;大吉&quot;, &quot;中吉&quot;, &quot;小吉&quot;, &quot;凶&quot;];
   const index = Math.floor(Math.random() * results.length);
-  document.getElementById("omikujiResult").textContent = `結果: ${results[index]}`;
-}</code></pre>
+  document.getElementById(&quot;omikujiResult&quot;).textContent = `結果: ${results[index]}`;
+}
+      </code></pre>
     </section>
 
     <!-- ToDoリスト -->
@@ -72,19 +80,21 @@ document.getElementById("output3").textContent = message;</code></pre>
       <input type="text" id="todoInput" placeholder="やることを入力">
       <button onclick="addTodo()">追加</button>
       <ul id="todoList"></ul>
-      <pre><code>function addTodo() {
-  const input = document.getElementById("todoInput");
+      <pre><code>
+function addTodo() {
+  const input = document.getElementById(&quot;todoInput&quot;);
   const value = input.value.trim();
   if (!value) return;
-  const li = document.createElement("li");
+  const li = document.createElement(&quot;li&quot;);
   li.textContent = value;
-  const delBtn = document.createElement("button");
-  delBtn.textContent = "削除";
-  delBtn.onclick = () => li.remove();
+  const delBtn = document.createElement(&quot;button&quot;);
+  delBtn.textContent = &quot;削除&quot;;
+  delBtn.onclick = () =&gt; li.remove();
   li.appendChild(delBtn);
-  document.getElementById("todoList").appendChild(li);
-  input.value = "";
-}</code></pre>
+  document.getElementById(&quot;todoList&quot;).appendChild(li);
+  input.value = &quot;&quot;;
+}
+      </code></pre>
     </section>
 
     <!-- スライダー -->
@@ -106,27 +116,29 @@ document.getElementById("output3").textContent = message;</code></pre>
       <h2>お絵描きボード</h2>
       <canvas id="canvas" width="500" height="300"></canvas><br>
       <button onclick="clearCanvas()">全消し</button>
-      <pre><code>const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+      <pre><code>
+const canvas = document.getElementById(&quot;canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
 let drawing = false;
 
-canvas.addEventListener("mousedown", e => {
+canvas.addEventListener(&quot;mousedown&quot;, e =&gt; {
   drawing = true;
   ctx.beginPath();
   ctx.moveTo(e.offsetX, e.offsetY);
 });
 
-canvas.addEventListener("mousemove", e => {
+canvas.addEventListener(&quot;mousemove&quot;, e =&gt; {
   if (!drawing) return;
   ctx.lineTo(e.offsetX, e.offsetY);
   ctx.stroke();
 });
 
-canvas.addEventListener("mouseup", () => drawing = false);
+canvas.addEventListener(&quot;mouseup&quot;, () =&gt; drawing = false);
 
 function clearCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-}</code></pre>
+}
+      </code></pre>
     </section>
 
     <!-- トップへのリンク -->
@@ -136,33 +148,29 @@ function clearCanvas() {
     <p>本コンテンツの作成時間：約8時間（設計・実装含む）</p>
   </main>
 
+  <!-- 実行用スクリプト -->
   <script>
-    // 実行例1
     function runExample1() {
       let name = "太郎";
       const age = 20;
       document.getElementById("output1").textContent = `名前: ${name}、年齢: ${age}`;
     }
 
-    // 実行例2
     function runExample2() {
       alert("こんにちは！");
     }
 
-    // 実行例3
     function runExample3(score) {
       let message = score >= 80 ? "よくできました" : "がんばりましょう";
       document.getElementById("output3").textContent = message;
     }
 
-    // おみくじ
     function drawOmikuji() {
       const results = ["大吉", "中吉", "小吉", "凶"];
       const index = Math.floor(Math.random() * results.length);
       document.getElementById("omikujiResult").textContent = `結果: ${results[index]}`;
     }
 
-    // ToDo追加
     function addTodo() {
       const input = document.getElementById("todoInput");
       const value = input.value.trim();
@@ -177,7 +185,6 @@ function clearCanvas() {
       input.value = "";
     }
 
-    // スライダー（自動のみ）
     let currentSlide = 0;
     function updateSlider() {
       const slider = document.getElementById("slider");
@@ -195,7 +202,6 @@ function clearCanvas() {
     window.addEventListener("resize", updateSlider);
     window.addEventListener("load", updateSlider);
 
-    // お絵描き
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
     let drawing = false;
