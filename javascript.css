@@ -1,68 +1,92 @@
+/* ベーススタイル */
 body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
-  background-color: #f4f4f4;
+  font-family: "Segoe UI", sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
   color: #333;
+  padding: 20px;
 }
 
 h1, h2 {
-  color: #222;
+  color: #2c3e50;
+  margin-top: 30px;
 }
 
-p {
-  line-height: 1.6;
+pre, code {
+  background-color: #1e1e1e;
+  color: #f8f8f2;
+  padding: 15px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  margin-top: 10px;
 }
 
-.back-button {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 10px 15px;
+.output {
+  background-color: #eaf6ff;
+  padding: 12px;
+  border-left: 5px solid #007bff;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* ボタンスタイル */
+button {
+  padding: 10px 18px;
+  margin: 8px 0;
+  border: none;
   background-color: #007bff;
   color: white;
-  text-decoration: none;
-  border-radius: 5px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-/* === スライダー === */
+button:hover {
+  background-color: #0056b3;
+}
+
+/* スライダー */
 .slider-container {
   position: relative;
-  width: 100%;
-  max-width: 600px;
-  margin: 30px auto;
+  max-width: 100%;
   overflow: hidden;
-  border: 2px solid #ccc;
+  border: 1px solid #ccc;
   border-radius: 10px;
-  background-color: white;
+  background: white;
+  margin: 20px 0;
 }
 
 .slider {
   display: flex;
-  transition: transform 0.5s ease-in-out;
-  width: 500%;
+  transition: transform 0.6s ease-in-out;
+  width: 500%; /* 5枚画像前提 */
 }
 
 .slider img {
   width: 100%;
-  max-height: 250px;
+  flex-shrink: 0;
   object-fit: contain;
 }
 
-/* ボタン共通 */
+/* スライダーボタン */
 .slider-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0,0,0,0.5);
   color: white;
-  border: none;
-  padding: 10px;
   font-size: 24px;
+  border: none;
   cursor: pointer;
-  z-index: 2;
-  border-radius: 5px;
+  padding: 8px 12px;
+  border-radius: 50%;
 }
 
-/* 左右ボタン位置 */
 .slider-btn.left {
   left: 10px;
 }
@@ -71,72 +95,55 @@ p {
   right: 10px;
 }
 
-/* モバイル対応 */
-@media (max-width: 600px) {
-  h1 {
-    font-size: 20px;
-  }
+/* お絵描きキャンバス */
+canvas {
+  display: block;
+  margin: 20px auto;
+  background-color: white;
+  border: 2px solid #333;
+  border-radius: 8px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.3);
+  max-width: 100%;
+}
 
-  .slider img {
-    max-height: 150px;
+/* ToDoリスト */
+.todo-item {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 戻るボタン */
+.back-button {
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none;
+  color: white;
+  background-color: #6c757d;
+  padding: 10px 15px;
+  border-radius: 6px;
+}
+
+.back-button:hover {
+  background-color: #495057;
+}
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 600px) {
+  pre, code {
+    font-size: 14px;
   }
 
   .slider-btn {
     font-size: 18px;
-    padding: 8px;
   }
-}
 
-/* --- コードブロック --- */
-pre, code {
-  background-color: #1e1e1e;
-  color: #f8f8f2;
-  padding: 16px;
-  border-radius: 8px;
-  font-family: Consolas, 'Courier New', monospace;
-  font-size: 15px;
-  line-height: 1.6;
-  white-space: pre-wrap;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-  overflow-x: auto;
-  margin-bottom: 20px;
-}
-
-/* --- 実行結果表示 --- */
-.output {
-  background-color: #f3fdf3;
-  border: 2px solid #89c789;
-  color: #265d26;
-  padding: 15px;
-  border-radius: 6px;
-  margin: 15px 0;
-  font-weight: bold;
-  font-family: sans-serif;
-  box-shadow: inset 0 0 5px #cdeacc;
-}
-
-/* --- お絵描きボード --- */
-#canvas {
-  display: block;
-  margin: 20px auto;
-  border: 3px solid #333;
-  background-color: #fff;
-  box-shadow: 4px 4px 12px rgba(0,0,0,0.2);
-  border-radius: 10px;
-  max-width: 100%;
-}
-
-button {
-  padding: 10px 18px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  font-size: 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 10px 0;
-}
-
-button:hover {
-  background-color: #0056b3;
+  button {
+    width: 100%;
+  }
 }
