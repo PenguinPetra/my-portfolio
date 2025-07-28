@@ -74,8 +74,12 @@ canvas {
   border-radius: 6px;
   display: block;
   margin: 0 auto 10px auto;
-  background-color: #fff; /* キャンバス自体の背景も白く */
+  background-color: #fff;
+  width: 100%;        /* 追加: 幅を100%に */
+  height: auto;       /* 高さは自動調整 */
+  max-width: 500px;   /* 最大幅を制限 */
 }
+
 
 /* コード表示のフォント・行間・余白調整 */
 pre {
